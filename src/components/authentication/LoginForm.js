@@ -1,32 +1,36 @@
 import React  from 'react';
-import { useDispatch }  from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { FormControl, Button } from '@material-ui/core';
-import {alertActions, authActions} from "../redux/actions";
+import {alertActions, authActions} from "../../redux/actions";
 import TextField from '@mui/material/TextField';
-
-
-
+import {history} from '../../redux/helpers'
 function LoginForm() {
     const dispatch = useDispatch();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-
+    const authReducer = useSelector(state => state.authReducer);
 
     function handleSubmit(e) {
         e.preventDefault();
 
 
+
         if (email && password) {
-              dispatch(alertActions.success('There is a password and user typed in the text box'));
-             dispatch(authActions.login(email,password));
+                   const user = 'arenteriaperulles@outlook.com';
+                   const pass = 'doubamaska212!';
+                  dispatch(alertActions.info('Attempting Login'));
+                dispatch(authActions.login(user,pass));
+                history.push('/dashboard');
+
         } else{
-            dispatch(alertActions.error('Please fill all the fields'));
+
+                dispatch(alertActions.info('Email and Password must not be empty'));
+
         }
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{ textAlign: 'center' }} >
+        <form onSubmit={handleSubmit} style={{ textAlign: 'center', padding:'20px', marginBottom: '0' }} >
             <FormControl  elevation={3} style={{ display: 'block' , width:'100%'}}>
                 <TextField
                     label="Email"

@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { store } from './redux/helpers';
+import { store,history } from './redux/helpers';
 import { Provider } from 'react-redux';
-import { createTheme , ThemeProvider} from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { createTheme , ThemeProvider, styled} from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ReportWebVitals from "./reportWebVitals";
-
+import { orange } from '@mui/material/colors';
 // import routes
-import Auth from './dashboard/Auth';
-import Alerts from './components/Alerts'
+import Auth from './dashboard/authentication/Auth';
+import Dashboard from './dashboard/';
+import Alerts from './components/Alerts';
+
 
 const theme = createTheme({
     palette: {
@@ -20,19 +22,24 @@ const theme = createTheme({
             main: '#FFDE17',
         },
     },
+    status: {
+        danger: orange[500],
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-
-
+const user = localStorage.getItem("user");
+ console.log(user);
 root.render(
     <Provider store={store} >
         <ThemeProvider theme={theme} >
             <Alerts />
-            <Router >
+            <Router  history={history}>
                     <Routes>
-                        <Route path="/auth" element={<Auth/>}/>
+
+                        <Route exact path="/dashboard" element={<Dashboard/>}/>
+                        <Route exact path="/auth" element={<Auth/>}/>
                     </Routes>
             </Router>
         </ThemeProvider>

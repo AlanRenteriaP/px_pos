@@ -1,2 +1,2 @@
 export * from './Alerts';
-export * from './LoginForm';
+export * from './authentication/LoginForm';

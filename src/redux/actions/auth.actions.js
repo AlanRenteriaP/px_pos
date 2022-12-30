@@ -1,6 +1,5 @@
 import { authConstants } from '../constants';
 import { alertActions } from './';
-import { history } from '../helpers';
 import { authService } from "../services";
 
 export const authActions = {
@@ -11,23 +10,22 @@ export const authActions = {
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
-
+        setTimeout(() => {
         authService.login(username, password)
-            .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error[0].errorMessage.toString()));
-                    dispatch(alertActions.error(error[0].errorMessage.toString()));
-                }
+            .then(response => {
+                       dispatch(success(response.user))
+                       dispatch(alertActions.success(response.message ));
+                     },
+                    error => {
+                       console.log(error);
+                        dispatch(failure(error));
+                        dispatch(alertActions.warning(error[0].message));
+  }
             );
+            }, 1000);
     };
 
-    function request(user) {
-        return { type: authConstants.LOGIN_REQUEST, user }
-    }
-    function success(user) { return { type: authConstants.LOGIN_SUCCESS, user } }
+    function request(user) {  return { type: authConstants.LOGIN_REQUEST, user }}
+    function success(user) {return { type: authConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
