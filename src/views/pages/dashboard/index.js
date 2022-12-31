@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { history } from '../redux/helpers';
+import { history } from '../../../redux/helpers';
 
 const useStyles = makeStyles((theme) => ({
     root: {

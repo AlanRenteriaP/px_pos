@@ -1,9 +1,9 @@
 import React  from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { FormControl, Button } from '@material-ui/core';
-import {alertActions, authActions} from "../../redux/actions";
+import {alertActions, authActions} from "../../../redux/actions";
 import TextField from '@mui/material/TextField';
-import {history} from '../../redux/helpers'
+import {history} from '../../../redux/helpers'
 function LoginForm() {
     const dispatch = useDispatch();
     const [email, setEmail] = React.useState('');

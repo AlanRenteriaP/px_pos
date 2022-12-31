@@ -8,9 +8,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ReportWebVitals from "./reportWebVitals";
 import { orange } from '@mui/material/colors';
 // import routes
-import Auth from './dashboard/authentication/Auth';
-import Dashboard from './dashboard/';
-import Alerts from './components/Alerts';
+import Auth from './views/pages/dashboard/authentication/Auth';
+import Dashboard from './views/pages/dashboard/';
+import Alerts from './views/components/Alerts';
 
 
 const theme = createTheme({

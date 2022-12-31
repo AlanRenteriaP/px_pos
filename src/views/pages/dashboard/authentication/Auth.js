@@ -1,10 +1,10 @@
-import logo from '../../Media/logo.svg';
+import logo from '../../../../Media/logo.svg';
 import './Auth.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
 import LinearProgress from '@mui/material/LinearProgress';
-import  LoginForm from '../../components/authentication/LoginForm'
+import  LoginForm from '../../../components/authentication/LoginForm'
 import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
