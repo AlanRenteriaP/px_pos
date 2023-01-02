@@ -1,18 +1,18 @@
 import React  from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { FormControl, Button } from '@material-ui/core';
 import {alertActions, authActions} from "../../../redux/actions";
 import TextField from '@mui/material/TextField';
-import {history} from '../../../redux/helpers'
-function LoginForm() {
+
+import { Navigate } from "react-router-dom";
+
+function LoginForm(props) {
     const dispatch = useDispatch();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const authReducer = useSelector(state => state.authReducer);
 
     function handleSubmit(e) {
         e.preventDefault();
-
 
 
         if (email && password) {
@@ -20,13 +20,15 @@ function LoginForm() {
                    const pass = 'doubamaska212!';
                   dispatch(alertActions.info('Attempting Login'));
                 dispatch(authActions.login(user,pass));
-                history.push('/dashboard');
+            return <Navigate to="/dashboard" />;
 
         } else{
 
                 dispatch(alertActions.info('Email and Password must not be empty'));
 
         }
+
+
     }
 
     return (

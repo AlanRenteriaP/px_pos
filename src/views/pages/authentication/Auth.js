@@ -1,11 +1,13 @@
-import logo from '../../../../Media/logo.svg';
+import logo from '../../../assets/media/logo.svg';
 import './Auth.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
 import LinearProgress from '@mui/material/LinearProgress';
-import  LoginForm from '../../../components/authentication/LoginForm'
-import {useSelector} from "react-redux";
+import  LoginForm from '../../components/authentication/LoginForm'
+import {useDispatch, useSelector} from "react-redux";
+import { Navigate } from "react-router-dom";
+import {alertActions} from "../../../redux/actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,8 +29,12 @@ const useStyles = makeStyles((theme) => ({
 function Auth() {
     const classes = useStyles();
     const isLoading = useSelector(state => state.authReducer.isLoading);
-
-
+    const authState = JSON.parse(localStorage.getItem("authState"));
+    const dispatch = useDispatch();
+    if(authState?.isAuthenticated){
+        dispatch(alertActions.info('Logged In!'));
+        return <Navigate to="/dashboard" />;
+    }
 
     return (
 

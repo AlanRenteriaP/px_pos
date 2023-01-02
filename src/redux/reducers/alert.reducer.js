@@ -1,9 +1,9 @@
 import { alertConstants } from '../constants';
 
-const initialUserState = {
+const initialState = {
     notification:[]
 }
-export function alert(state = initialUserState, action) {
+export function alert(state = initialState, action) {
     switch (action.type) {
 
         case alertConstants.SET_ALERT:

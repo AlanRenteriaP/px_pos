@@ -1,48 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { store,history } from './redux/helpers';
+import { store } from './redux/helpers';
 import { Provider } from 'react-redux';
-import { createTheme , ThemeProvider, styled} from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ReportWebVitals from "./reportWebVitals";
-import { orange } from '@mui/material/colors';
-// import routes
-import Auth from './views/pages/dashboard/authentication/Auth';
-import Dashboard from './views/pages/dashboard/';
-import Alerts from './views/components/Alerts';
+
+// import App
+import App from './views/App';
 
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#231810',
-        },
-        secondary: {
-            main: '#FFDE17',
-        },
-    },
-    status: {
-        danger: orange[500],
-    },
-});
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const user = localStorage.getItem("user");
- console.log(user);
 root.render(
     <Provider store={store} >
-        <ThemeProvider theme={theme} >
-            <Alerts />
-            <Router  history={history}>
-                    <Routes>
-
-                        <Route exact path="/dashboard" element={<Dashboard/>}/>
-                        <Route exact path="/auth" element={<Auth/>}/>
-                    </Routes>
-            </Router>
-        </ThemeProvider>
+        <App/>
     </Provider>
 );
 

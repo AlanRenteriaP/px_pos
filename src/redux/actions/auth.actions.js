@@ -2,6 +2,7 @@ import { authConstants } from '../constants';
 import { alertActions } from './';
 import { authService } from "../services";
 
+
 export const authActions = {
     login,
 };
@@ -9,8 +10,8 @@ export const authActions = {
 
 function login(username, password) {
     return dispatch => {
+
         dispatch(request({ username }));
-        setTimeout(() => {
         authService.login(username, password)
             .then(response => {
                        dispatch(success(response.user))
@@ -20,9 +21,8 @@ function login(username, password) {
                        console.log(error);
                         dispatch(failure(error));
                         dispatch(alertActions.warning(error[0].message));
-  }
-            );
-            }, 1000);
+                       });
+
     };
 
     function request(user) {  return { type: authConstants.LOGIN_REQUEST, user }}
