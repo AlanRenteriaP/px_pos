@@ -1,22 +1,26 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import {makeStyles} from "@material-ui/styles";
 import logo from '../../../assets/media/logo-app.png';
-const pages = ['Products', 'Pricing', 'Blog'];
+import clsx from 'clsx';
+import {useSelector} from "react-redux";
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Products', 'Pricing', 'Blog'];
+const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,12 +33,47 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: '0',
     },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: drawerWidth,
+    },
+    appBar: {
+        backgroundColor: theme.palette.primary.main + ' !important',
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    }
 }));
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
 
 function ResponsiveAppBar() {
     const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [open, setOpen] = React.useState(true);
+    const drawer_status = useSelector(state => state.menubar.isOpen);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -52,31 +91,20 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="static"  className={classes.root}>
+        <AppBar position="fixed"  className={classes.appBar} open={drawer_status}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' },  fontFamily: 'monospace', fontWeight: 700,  letterSpacing: '.3rem', color: 'inherit',  textDecoration: 'none',}}>
                         <img src={logo} alt="logo"  />
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton  size="large"  aria-label="account of current user" aria-controls="menu-appbar"  aria-haspopup="true" onClick={handleOpenNavMenu} color="inherit">
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{  vertical: 'bottom', horizontal: 'left',  }} keepMounted transformOrigin={{   vertical: 'top',horizontal: 'left',}} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} sx={{display: { xs: 'block', md: 'none' },}}>
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+
                     <Typography variant="h5"  noWrap component="a" href="" sx={{mr: 2,  display: { xs: 'flex', md: 'none' },  flexGrow: 1, fontFamily: 'monospace',  fontWeight: 700,  letterSpacing: '.3rem',   color: 'inherit', textDecoration: 'none'}}>
                         <img src={logo} alt="logo"  />
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                       <BarChartIcon/>
+                        <BarChartIcon/>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
