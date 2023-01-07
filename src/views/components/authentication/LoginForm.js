@@ -16,7 +16,7 @@ function LoginForm(props) {
 
 
         if (email && password) {
-                   const user = 'arenteriaperulles@outlook.com';
+                   const user = 'alanrenteriap@outlook.com';
                    const pass = 'doubamaska212!';
                   dispatch(alertActions.info('Attempting Login'));
                 dispatch(authActions.login(user,pass));

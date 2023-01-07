@@ -1,7 +1,5 @@
 import * as React from 'react';
 import MuiAppBar from '@mui/material/AppBar';
-
-import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,10 +13,8 @@ import MenuItem from '@mui/material/MenuItem';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import {makeStyles} from "@material-ui/styles";
 import logo from '../../../assets/media/logo-app.png';
-import clsx from 'clsx';
 import {useSelector} from "react-redux";
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const pages = ['Products', 'Pricing', 'Blog'];
 const drawerWidth = 240;
 
 
@@ -70,21 +66,15 @@ const AppBar = styled(MuiAppBar, {
 
 function ResponsiveAppBar() {
     const classes = useStyles();
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [open, setOpen] = React.useState(true);
     const drawer_status = useSelector(state => state.menubar.isOpen);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);

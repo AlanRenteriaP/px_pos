@@ -1,17 +1,11 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
 import ResponsiveAppBar from "../../components/navbar/ResponsiveAppBar";
 import DrawerMenu from '../../components/drawer/DrawerMenu';
 import { styled } from '@mui/material/styles';
 import {useSelector} from "react-redux";
-import Typography from '@mui/material/Typography';
 import {makeStyles} from "@material-ui/styles";
 import Box from '@mui/material/Box';
 import {Route, Routes} from "react-router-dom";
-import Landing from "../landing/Landing";
-import PrivateRoute from "../../components/PrivateRoute";
-import Auth from "../authentication/Auth";
-import NotFound from "../NotFound/NotFound";
 import Profile from './pages/Profile';
 
 const drawerWidth = 0;
