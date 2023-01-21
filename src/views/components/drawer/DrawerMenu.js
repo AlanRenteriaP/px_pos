@@ -84,18 +84,16 @@ function DrawerMenu(props) {
             </DrawerHeader>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
-                            <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: isOpen ? 1 : 0 }} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                <ListItem key={'Materia Prima'} disablePadding sx={{ display: 'block' }}>
+                    <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
+                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><MailIcon /></ListItemIcon>
+                        <ListItemText primary={'Materia Prima'} sx={{ opacity: isOpen ? 1 : 0 }} />
+                    </ListItemButton>
+                </ListItem>
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                {[ 'Logout' ].map((text, index) => (
                     <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                         <ListItemButton
                             sx={{
