@@ -11,10 +11,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { menubarActions} from "../../../redux/actions";
-
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {makeStyles} from "@material-ui/styles";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -63,7 +63,22 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        zindex: '2'
+    },
+    logoutPosition:{
+        position:'absolute',
+        width:drawerWidth,
+        bottom: 0,
+        right:0,
+    }
+}));
+
+
 function DrawerMenu(props) {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const theme = useTheme();
     const isOpen = useSelector(state => state.menubar.isOpen);
@@ -76,7 +91,8 @@ function DrawerMenu(props) {
 
 
     return (
-        <Drawer variant="permanent" open={isOpen}>
+        <div className={classes.root}>
+        <Drawer  variant="permanent" open={isOpen}>
             <DrawerHeader>
                 <IconButton onClick={handleDrawer}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -86,37 +102,23 @@ function DrawerMenu(props) {
             <List>
                 <ListItem key={'Materia Prima'} disablePadding sx={{ display: 'block' }}>
                     <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
-                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><MailIcon /></ListItemIcon>
+                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><WarehouseIcon /></ListItemIcon>
                         <ListItemText primary={'Materia Prima'} sx={{ opacity: isOpen ? 1 : 0 }} />
                     </ListItemButton>
                 </ListItem>
             </List>
             <Divider />
-            <List>
-                {[ 'Logout' ].map((text, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: isOpen ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: isOpen ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: isOpen ? 1 : 0 }} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+            <List className={classes.logoutPosition}>
+
+                <ListItem key={'Logout'} disablePadding sx={{ display: 'block' }} >
+                    <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
+                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><LogoutIcon /></ListItemIcon>
+                        <ListItemText primary={'Logout'} sx={{ opacity: isOpen ? 1 : 0 }} />
+                    </ListItemButton>
+                </ListItem>
             </List>
         </Drawer>
+        </div>
     );
 }
 
