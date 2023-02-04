@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/styles";
 import Box from '@mui/material/Box';
 import {Route, Routes} from "react-router-dom";
 import Profile from './pages/Profile';
+import Materiaprima from './pages/Materiaprima';
 
 const drawerWidth = 0;
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ function Dashboard() {
 
             <Main open={drawer_status} className={classes.root}>
                 <Routes>
+                    <Route  path="/materiaprima/*" element={<Materiaprima/>}/>
                     <Route  path="/profile/*" element={<Profile/>}/>
                     <Route  path="*" element={<Profile/>}  />
                 </Routes>

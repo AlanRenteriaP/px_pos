@@ -68,7 +68,7 @@ function ResponsiveAppBar() {
     const classes = useStyles();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const drawer_status = useSelector(state => state.menubar.isOpen);
-    const user = useSelector(state => state.authReducer.user);
+    // const user = useSelector(state => state.authReducer.user);
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="fixed"  className={classes.appBar} open={drawer_status}>
+        <AppBar position="fixed"  className={classes.appBar} open={drawer_status} style={{paddingLeft: drawer_status ? 0 : 65 }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' },  fontFamily: 'monospace', fontWeight: 700,  letterSpacing: '.3rem', color: 'inherit',  textDecoration: 'none',}}>

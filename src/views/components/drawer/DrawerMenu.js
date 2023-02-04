@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { Link } from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -15,6 +16,7 @@ import { menubarActions} from "../../../redux/actions";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {makeStyles} from "@material-ui/styles";
+import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -69,56 +71,70 @@ const useStyles = makeStyles((theme) => ({
         zindex: '2'
     },
     logoutPosition:{
-        position:'absolute',
+        position:'absolute !important',
         width:drawerWidth,
         bottom: 0,
-        right:0,
+    },
+    drawercolor:{
+        background: theme.palette.secondary.main + ' !important',
+    },
+    bottoncolor:{
+        background: theme.palette.primary.main + '!important',
     }
 }));
 
 
-function DrawerMenu(props) {
+
+function DrawerMenu() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const theme = useTheme();
     const isOpen = useSelector(state => state.menubar.isOpen);
-    console.log(isOpen);
     const handleDrawer = () => {
         dispatch(menubarActions.toggle_menu(isOpen));
     };
-
-
+    const logout =() => {
+       console.log('logout')
+    }
 
 
     return (
-        <div className={classes.root}>
-        <Drawer  variant="permanent" open={isOpen}>
+
+        <Drawer  classes={{paper:classes.drawercolor}} variant="permanent" open={isOpen}>
             <DrawerHeader>
                 <IconButton onClick={handleDrawer}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
             </DrawerHeader>
-            <Divider />
             <List>
-                <ListItem key={'Materia Prima'} disablePadding sx={{ display: 'block' }}>
-                    <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
-                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><WarehouseIcon /></ListItemIcon>
-                        <ListItemText primary={'Materia Prima'} sx={{ opacity: isOpen ? 1 : 0 }} />
-                    </ListItemButton>
-                </ListItem>
-            </List>
-            <Divider />
-            <List className={classes.logoutPosition}>
 
-                <ListItem key={'Logout'} disablePadding sx={{ display: 'block' }} >
-                    <ListItemButton sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
-                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><LogoutIcon /></ListItemIcon>
-                        <ListItemText primary={'Logout'} sx={{ opacity: isOpen ? 1 : 0 }} />
+                <Divider />
+                <ListItem component={Link} to="/dashboard/materiaprima" key={'MateriaPrima'}  disablePadding sx={{ display: 'block' }}>
+                    <ListItemButton classes={{focused: classes.bottoncolor}} sx={{minHeight: 48, justifyContent: isOpen ? 'initial' : 'center', px: 2.5,}}>
+                        <ListItemIcon color="blue" sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}><WarehouseIcon /></ListItemIcon>
+                        <ListItemText color="primary" primary={'Materia Prima'} sx={{ opacity: isOpen ? 1 : 0 }} />
                     </ListItemButton>
                 </ListItem>
+                <Divider />
+            </List>
+
+            <List className={classes.logoutPosition}>
+                <Divider />
+                <ListItem component={Link} to="/dashboard/profile"  key="AdminProfile" disablePadding sx={{ display: 'block'}}>
+                    <ListItemButton  sx={{minHeight: 48, justifyContent: isOpen? 'initial' : 'center', px:2.5,}}>
+                        <ListItemIcon sx={{minWidth: 0, mr: isOpen ? 3 : 'auto', justifyContent: 'center',}}>  <PersonIcon /></ListItemIcon>
+                        <ListItemText primary="Admin Profile"  sx={{ opacity: isOpen ? 1 : 0 }}/>
+                    </ListItemButton>
+                </ListItem>
+                <Divider />
+                <ListItem  onClick={logout}  key="LogOut">
+                    <ListItemIcon>  <LogoutIcon /></ListItemIcon>
+                    <ListItemText primary="Log Out" />
+                </ListItem>
+
             </List>
         </Drawer>
-        </div>
+
     );
 }
 
