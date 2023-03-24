@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 
 import { Navigate } from "react-router-dom";
 
-function LoginForm(props) {
+function LoginForm() {
     const dispatch = useDispatch();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');

@@ -1,9 +1,11 @@
 import { authConstants } from '../constants';
-let user = JSON.parse(localStorage.getItem('authState'));
-const initialState = user ? {
-    user } : {
+let auth = JSON.parse(localStorage.getItem('authState'));
+const initialState = auth ? {
+    auth
+    } : {
     isAuthenticated: false,
     user: {},
+    token: null,
     isLoading: false,
     error: null
 };
@@ -19,14 +21,16 @@ const initialState = user ? {
         case authConstants.LOGIN_SUCCESS:
             localStorage.setItem('authState', JSON.stringify({
                 isAuthenticated: true,
-                user: action.user,
+                user: action.credentials.user,
+                token: action.credentials.token,
                 isLoading: false,
                 error: null
             }));
             return {
                 ...state,
                 isAuthenticated: true,
-                user: action.user,
+                user: action.credentials.user,
+                token: action.credentials.token,
                 isLoading: false,
                 error: null
             };
@@ -46,6 +50,7 @@ const initialState = user ? {
                 ...state,
                 isAuthenticated: false,
                 user: {},
+                token: null,
                 isLoading: false,
                 error: null
             };

@@ -18,10 +18,13 @@ import People from '@mui/icons-material/People';
 import PermMedia from '@mui/icons-material/PermMedia';
 import Dns from '@mui/icons-material/Dns';
 import Public from '@mui/icons-material/Public';
-
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import {useDispatch, useSelector} from "react-redux";
+import ViewListIcon from '@mui/icons-material/ViewList';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 const data = [
-    { icon: <People />, label: 'Authentication' },
-    { icon: <Dns />, label: 'Database' },
+    { icon: <ViewListIcon />, label: 'Materia Prima' },
+    { icon: <Dns />, label: 'Recetas' },
     { icon: <PermMedia />, label: 'Storage' },
     { icon: <Public />, label: 'Hosting' },
 ];
@@ -42,8 +45,11 @@ const FireNav = styled(List)({
 
 export default function CustomizedList() {
     const [open, setOpen] = React.useState(true);
+    const dispatch = useDispatch();
+
+
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', maxWidth: "100%" }}>
             <ThemeProvider
                 theme={createTheme({
                     components: {
@@ -60,20 +66,9 @@ export default function CustomizedList() {
                     },
                 })}
             >
-                <Paper elevation={0} sx={{ maxWidth: 256 }}>
+                <Paper elevation={0} sx={{ maxWidth: "100%" }}>
                     <FireNav component="nav" disablePadding>
-                        <ListItemButton component="a" href="#customized-list">
-                            <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
-                            <ListItemText
-                                sx={{ my: 0 }}
-                                primary="Firebash"
-                                primaryTypographyProps={{
-                                    fontSize: 20,
-                                    fontWeight: 'medium',
-                                    letterSpacing: 0,
-                                }}
-                            />
-                        </ListItemButton>
+
                         <Divider />
                         <ListItem component="div" disablePadding>
                             <ListItemButton sx={{ height: 56 }}>
@@ -131,33 +126,10 @@ export default function CustomizedList() {
                                 pb: open ? 2 : 0,
                             }}
                         >
-                            <ListItemButton
-                                alignItems="flex-start"
-                                onClick={() => setOpen(!open)}
-                                sx={{
-                                    px: 3,
-                                    pt: 2.5,
-                                    pb: open ? 0 : 2.5,
-                                    '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-                                }}
-                            >
-                                <ListItemText
-                                    primary="Build"
-                                    primaryTypographyProps={{
-                                        fontSize: 15,
-                                        fontWeight: 'medium',
-                                        lineHeight: '20px',
-                                        mb: '2px',
-                                    }}
-                                    secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
-                                    secondaryTypographyProps={{
-                                        noWrap: true,
-                                        fontSize: 12,
-                                        lineHeight: '16px',
-                                        color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
-                                    }}
-                                    sx={{ my: 0 }}
-                                />
+                            <ListItemButton   alignItems="flex-start"   onClick={() => setOpen(!open)}  sx={{   px: 3,  pt: 2.5, pb: open ? 0 : 2.5,  '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },}}>
+                                <WarehouseIcon style={{marginRight: '16px'}}/>
+
+                                <ListItemText primary="Almacen"  primaryTypographyProps={{ fontSize: 15, fontWeight: 'medium', mb: '2px',}} sx={{ my: 0 }}/>
                                 <KeyboardArrowDown
                                     sx={{
                                         mr: -1,
