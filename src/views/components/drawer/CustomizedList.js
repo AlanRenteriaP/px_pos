@@ -25,8 +25,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 const data = [
     { icon: <ViewListIcon />, label: 'Materia Prima' },
     { icon: <Dns />, label: 'Recetas' },
-    { icon: <PermMedia />, label: 'Storage' },
-    { icon: <Public />, label: 'Hosting' },
+    { icon: <PermMedia />, label: 'Almacenamiento' },
 ];
 
 const FireNav = styled(List)({
@@ -69,7 +68,7 @@ export default function CustomizedList() {
                 <Paper elevation={0} sx={{ maxWidth: "100%" }}>
                     <FireNav component="nav" disablePadding>
 
-                        <Divider />
+
                         <ListItem component="div" disablePadding>
                             <ListItemButton sx={{ height: 56 }}>
                                 <ListItemIcon>
