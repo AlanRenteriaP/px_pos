@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ResponsiveAppBar from "../../components/navbar/ResponsiveAppBar";
-import DrawerMenu from '../../components/drawer/DrawerMenu';
-import Maindrawer from '../../components/drawer/Maindrawer';
+import DrawerMenu from '../../components/dashboard/drawer/DrawerMenu';
+import Maindrawer from '../../components/dashboard/drawer/Maindrawer';
 import { styled } from '@mui/material/styles';
 import {useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/styles";
 import Box from '@mui/material/Box';
 import {Route, Routes} from "react-router-dom";
-import Profile from './pages/Profile';
-import Materiaprima from './pages/Materiaprima';
+import Profile from '../../components/dashboard/pages/Profile';
+import Materiaprima from '../../components/dashboard/pages/Materiaprima';
 
 const drawerWidth = 0;
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +38,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
 );
 function Dashboard() {
+    const [activeComponent, setActiveComponent] = useState(Profile);
     const drawer_status = useSelector(state => state.menubar.isOpen);
     const classes = useStyles();
     return (
@@ -47,11 +48,13 @@ function Dashboard() {
             {/*<DrawerMenu/>*/}
             <Maindrawer />
             <Main open={drawer_status} className={classes.root}>
-                <Routes>
-                    <Route  path="/materiaprima/*" element={<Materiaprima/>}/>
-                    <Route  path="/profile/*" element={<Profile/>}/>
-                    <Route  path="*" element={<Profile/>}  />
-                </Routes>
+
+                {activeComponent && <activeComponent />}
+                {/*<Routes>*/}
+                {/*    <Route  path="/materiaprima/*" element={<Materiaprima/>}/>*/}
+                {/*    <Route  path="/profile/*" element={<Profile/>}/>*/}
+                {/*    <Route  path="*" element={<Profile/>}  />*/}
+                {/*</Routes>*/}
             </Main>
 
         </Box>

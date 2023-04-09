@@ -2,14 +2,16 @@ import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
-import { menubarActions} from "../../../redux/actions";
+import { menubarActions} from "../../../../redux/actions";
 import {makeStyles} from "@material-ui/styles";
 import IconButton from "@mui/material/IconButton";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import CustomizedList from "../drawer/CustomizedList"
+import CustomizedList from "./CustomizedList"
+// import sidebar from "sidebar.js";
+import Sidebar from "./Sidebar.js";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -98,7 +100,8 @@ function Maindrawer() {
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
             </DrawerHeader>
-            <CustomizedList />
+            <Sidebar/>
+            {/*<CustomizedList />*/}
 
         </Drawer>
 
