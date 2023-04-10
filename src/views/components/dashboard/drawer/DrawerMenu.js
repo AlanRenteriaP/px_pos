@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { menubarActions} from "../../../../redux/actions";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles} from "@mui/styles";
 import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper } from '@mui/material';
 import {alertActions} from "../../../redux/actions";
 import {useDispatch} from "react-redux";
 import { Navigate } from "react-router-dom";

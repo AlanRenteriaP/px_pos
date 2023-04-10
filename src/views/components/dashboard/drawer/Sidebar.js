@@ -24,21 +24,6 @@ import {
     ExpandLess,
     ExpandMore,
 } from "@mui/icons-material";
-// import { TreeItem, TreeView } from "@mui/lab";
-
-// const sidebarItems = [
-//     // ... other items
-//     {
-//         label: "Hamburger Menu",
-//         icon: <PromotionsIcon />,
-//         subItems: [
-//             { label: "Option 1" },
-//             { label: "Option 2" },
-//             { label: "Option 3" },
-//         ],
-//     },
-//     // ... other items
-// ];
 
 const sidebarItems = [
     { label: "Dashboard", icon: <DashboardIcon />,
@@ -143,6 +128,5 @@ const Sidebar = ({ }) => {
         </Box>
     );
 };
-
 
 export default Sidebar;

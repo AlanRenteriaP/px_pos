@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {history} from "../redux/helpers";
-import { createTheme , ThemeProvider} from '@material-ui/core/styles';
-import Alerts from "./components/Alerts";
-import PrivateRoute from './components/PrivateRoute';
+import { createTheme , ThemeProvider} from '@mui/material/styles';
+import Alerts from "./components/common/Alerts";
+import PrivateRoute from './components/common/PrivateRoute';
 
 // Pages
 import Landing from "./pages/landing/Landing";

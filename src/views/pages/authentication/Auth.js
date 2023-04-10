@@ -1,8 +1,8 @@
 import logo from '../../../assets/media/logo.svg';
 import './Auth.css';
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
-import { Paper } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Paper } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import  LoginForm from '../../components/authentication/LoginForm'
 import {useDispatch, useSelector} from "react-redux";

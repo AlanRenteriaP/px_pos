@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles} from "@mui/styles";
 import logo from '../../../assets/media/logo-app.png';
 import {useSelector} from "react-redux";
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];

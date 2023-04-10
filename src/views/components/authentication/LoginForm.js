@@ -1,6 +1,6 @@
 import React  from 'react';
 import {useDispatch} from 'react-redux';
-import { FormControl, Button } from '@material-ui/core';
+import { FormControl, Button } from '@mui/material';
 import {alertActions, authActions} from "../../../redux/actions";
 import TextField from '@mui/material/TextField';
 

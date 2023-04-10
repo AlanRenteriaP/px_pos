@@ -1,7 +1,7 @@
 // src/store/reducers/activeComponent.js
-import DefaultComponent from "../../views/components/dashboard/pages/profile";
+import Profile from "../../views/components/dashboard/pages/Profile";
 
-const initialState = DefaultComponent;
+const initialState = Profile;
 
 export function  activeComponent(state = initialState, action){
     switch (action.type) {

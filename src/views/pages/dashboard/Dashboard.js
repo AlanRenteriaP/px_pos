@@ -4,7 +4,7 @@ import DrawerMenu from '../../components/dashboard/drawer/DrawerMenu';
 import Maindrawer from '../../components/dashboard/drawer/Maindrawer';
 import { styled } from '@mui/material/styles';
 import {useSelector} from "react-redux";
-import {makeStyles} from "@material-ui/styles";
+import {makeStyles} from "@mui/styles";
 import Box from '@mui/material/Box';
 import {Route, Routes} from "react-router-dom";
 import Profile from '../../components/dashboard/pages/Profile';
