@@ -2,7 +2,7 @@ import React, {  useEffect }  from 'react';
 import clsx from 'clsx';
 import { useDispatch, useSelector}  from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import Alert from '@mui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import Close from '@mui/icons-material/Close';
