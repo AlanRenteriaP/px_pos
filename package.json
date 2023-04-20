@@ -16,7 +16,7 @@
     "react-router-dom": "^6.10.0"
   },
   "scripts": {
-    "start": "npx webpack serve",
+    "start": "npx webpack serve"
   },
   "eslintConfig": {
     "extends": [
