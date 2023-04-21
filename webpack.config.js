@@ -10,7 +10,7 @@ module.exports = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: [".js",".jsx",".ts",".tsx",".css",".,json"],
     },
     module: {
         rules: [
@@ -27,6 +27,10 @@ module.exports = {
                         ],
                     },
                 },
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             },
         ],
     },

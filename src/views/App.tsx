@@ -1,6 +1,5 @@
 import React from 'react';
-import { Router, Routes, Route } from 'react-router-dom';
-import { history } from '../redux/helpers';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import Alerts from './components/common/Alerts';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -16,12 +15,12 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Alerts />
-            <Router history={history}>
+            <Router>
                 <Routes>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                    <Route path="/auth/*" element={<Auth />} />
-                    <Route path="*" element={<NotFound />} />
+                    {/*<Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />*/}
+                    {/*<Route path="/auth/*" element={<Auth />} />*/}
+                    {/*<Route path="*" element={<NotFound />} />*/}
                 </Routes>
             </Router>
         </ThemeProvider>
