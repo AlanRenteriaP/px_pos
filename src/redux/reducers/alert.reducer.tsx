@@ -5,12 +5,13 @@ import { alertConstants } from '../constants';
 const initialState: AlertState = {
     notification: [],
 };
+
 // Define the Alert type
 export interface Alert {
-    id: number; // Adjust the type if needed
-    alertType: string; // Adjust the type if needed
-    msg: string; // Adjust the type if needed
-    open?: boolean; // Adjust the type if needed
+    id: string;
+    alertType: string;
+    msg: string;
+    open?: boolean;
 }
 
 // Define the AlertState type

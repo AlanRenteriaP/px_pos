@@ -8,24 +8,24 @@ import Collapse from '@mui/material/Collapse';
 import Close from '@mui/icons-material/Close';
 import { alertActions } from '../../../redux/actions';
 
-const useStyles = makeStyles((theme) => ({
-
-    MarginB: {
-        marginBottom: "5px"
-    },
-    AlertMessage:{
-        display: 'block',
-        position: 'fixed',
-        top:'10px',
-        right:'20px',
-        zIndex:'1000000',
-        marginBottom: '10px'
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//
+//     MarginB: {
+//         marginBottom: "5px"
+//     },
+//     AlertMessage:{
+//         display: 'block',
+//         position: 'fixed',
+//         top:'10px',
+//         right:'20px',
+//         zIndex:'1000000',
+//         marginBottom: '10px'
+//     },
+// }));
 
 function Alerts(){
 
-    const classes = useStyles();
+    // const classes = useStyles();
     const alert = useSelector(state => state.alert);
     const dispatch = useDispatch();
 

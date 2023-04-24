@@ -7,16 +7,16 @@ import { activeComponent } from './activeComponent.reducer';
 
 interface AppState {
     alert: any;
-    authReducer: any;
-    menubar: any;
-    activeComponent: any;
+    // authReducer: any;
+    // menubar: any;
+    // activeComponent: any;
 }
 
 const appReducer = combineReducers<AppState>({
     alert,
-    authReducer,
-    menubar,
-    activeComponent,
+    // authReducer,
+    // menubar,
+    // activeComponent,
 });
 
 const rootReducer = (state: AppState, action: any) => {
