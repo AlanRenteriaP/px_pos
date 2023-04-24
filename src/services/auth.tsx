@@ -17,7 +17,7 @@ function login(email, password) {
                 console.log(res.data.response.code);
                 switch (res.data.response.code){
                     case 200:
-                       // signed in succesfuly
+                        // signed in succesfuly
                         resolve(res.data.response);
                         break;
                     case 400:
@@ -34,7 +34,7 @@ function login(email, password) {
             })
             .catch(function (error) {
 // 400 something went wrong with the server
-                    console.log('there is an error connecting to the server', error);
+                console.log('there is an error connecting to the server', error);
                 reject(error);
             });
 

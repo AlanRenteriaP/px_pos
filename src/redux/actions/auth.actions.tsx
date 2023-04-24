@@ -1,6 +1,6 @@
 import { authConstants } from '../constants';
 import { alertActions } from './';
-import { authService } from "../services";
+import { authService } from "../../services";
 
 
 export const authActions = {

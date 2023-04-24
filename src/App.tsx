@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import Alerts from './components/common/Alerts';
-import PrivateRoute from './components/common/PrivateRoute';
+import Alerts from './views/components/common/Alerts';
+import PrivateRoute from './views/components/common/PrivateRoute';
 import theme from './theme';
 
 // Pages
-import Landing from './pages/landing/Landing';
-import Dashboard from './pages/dashboard/Dashboard';
-import Auth from './pages/authentication/Auth';
-import NotFound from './pages/NotFound/NotFound';
+import Landing from './views/pages/landing/Landing';
+import Dashboard from './views/pages/dashboard/Dashboard';
+import Auth from './views/pages/authentication/Auth';
+import NotFound from './views/pages/NotFound/NotFound';
 
 function App() {
     return (

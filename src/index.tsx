@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { store } from './redux/helpers';
+import { store } from './helpers';
 import { Provider } from 'react-redux';
 import ReportWebVitals from "./reportWebVitals";
 
 // import App
-import App from './views/App';
+import App from './App';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
