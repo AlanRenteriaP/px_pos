@@ -69,16 +69,12 @@ const Sidebar = ({ }) => {
 
     return (
 
-        <Box
-            sx={{ width: 250, display: "flex", flexDirection: "column", height: "100%" }}
-        >
+        <Box  sx={{ width: 250, display: "flex", flexDirection: "column", height: "100%" }}>
             <List>
                 {sidebarItems.map((item, index) => (
                     <React.Fragment key={index}>
                         <Tooltip title={item.tooltip || ""}>
-                            <ListItem
-                                button
-                                onClick={() => {
+                            <ListItem button onClick={() => {
                                     if (item.subItems) {
                                         handleSubMenuToggle(index);
                                     }
@@ -86,8 +82,7 @@ const Sidebar = ({ }) => {
                                         item.onClick();
                                     }
                                 }}
-                                disabled={item.disabled}
-                            >
+                                disabled={item.disabled}>
                                 <ListItemIcon>
                                     {item.badge ? (
                                         <Badge badgeContent={item.badge} color={item.color || "error"}>
