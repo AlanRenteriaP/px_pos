@@ -68,7 +68,7 @@ function ResponsiveAppBar() {
     const classes = useStyles();
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const drawer_status = useSelector(state => state.menubar.isOpen);
-    // const user = useSelector(state => state.authReducer.user);
+    // const user = useSelector(state => state.reducer.user);
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };

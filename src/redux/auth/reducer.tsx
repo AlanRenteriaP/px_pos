@@ -1,4 +1,4 @@
-import { authConstants } from '../constants';
+import { authConstants } from './constants';
 let auth = JSON.parse(localStorage.getItem('authState'));
 const initialState = auth ? {
     auth
@@ -11,7 +11,7 @@ const initialState = auth ? {
 };
 
 
- export function authReducer(state = initialState, action) {
+ export function reducer(state = initialState, action) {
     switch (action.type) {
         case authConstants.LOGIN_REQUEST:
             return {

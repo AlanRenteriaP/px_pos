@@ -3,7 +3,7 @@ import Profile from "../../views/components/dashboard/pages/Profile";
 
 const initialState = Profile;
 
-export function  activeComponent(state = initialState, action){
+export function  activePage(state = initialState, action){
     switch (action.type) {
         case "SET_ACTIVE_COMPONENT":
             return action.payload;

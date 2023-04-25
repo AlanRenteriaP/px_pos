@@ -1,3 +1,3 @@
-export * from './common/Alerts';
+export * from './feature/Alerts';
 export * from './authentication/LoginForm';
-export * from './common/PrivateRoute';
+export * from './feature/PrivateRoute';

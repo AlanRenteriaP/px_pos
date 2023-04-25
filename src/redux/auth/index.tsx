@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux';
 
-import { alert } from './alert.reducer';
-import { authReducer } from './auth.reducer';
-import { menubar } from './menubar.reducer';
-import { activeComponent } from './activeComponent.reducer';
+import { alert } from './reducer/alert.reducer';
+import { reducer } from './reducer';
+import { menubar } from '../navBar/adminNavBar/reducer';
+import { activeComponent } from './reducer/activeComponent.reducer';
 
 interface AppState {
     alert: any;
-    // authReducer: any;
+    // reducer: any;
     // menubar: any;
     // activeComponent: any;
 }
 
 const appReducer = combineReducers<AppState>({
     alert,
-    // authReducer,
+    // reducer,
     // menubar,
     // activeComponent,
 });

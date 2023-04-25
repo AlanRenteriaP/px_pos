@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import Alerts from './views/components/common/Alerts';
-import PrivateRoute from './views/components/common/PrivateRoute';
+import Alerts from './views/feature/feature/Alerts';
+import PrivateRoute from './views/components/feature/PrivateRoute';
 import theme from './theme';
 
 // Pages
