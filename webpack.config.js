@@ -13,6 +13,12 @@ module.exports = {
         extensions: [".js",".jsx",".ts",".tsx",".css",".,json"],
         alias: {
             '@src': path.resolve(__dirname, 'src'), // Set '@src' as an alias for the 'src' folder
+            '@components': path.resolve(__dirname,'src/components'), // Set '@components' as an alias for the 'components' folder
+            '@pages': path.resolve(__dirname,'src/pages'), // Set '@pages' as an alias
+            '@services': path.resolve(__dirname,'src/services'), // Set '@services' as an alias
+            '@assets': path.resolve(__dirname,'src/assets'), // Set 'assets' as an alias
+            '@redux' : path.resolve(__dirname,'src/redux'), // Set 'redux' as an alias
+
         },
     },
     module: {

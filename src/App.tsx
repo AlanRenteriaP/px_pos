@@ -1,26 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import Alerts from './views/feature/feature/Alerts';
-import PrivateRoute from './views/components/feature/PrivateRoute';
+// import PrivateRoute from './views/components/feature/PrivateRoute';
 import theme from './theme';
-
+import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 // Pages
-import Landing from './views/pages/landing/Landing';
-import Dashboard from './views/pages/dashboard/Dashboard';
-import Auth from './views/pages/authentication/Auth';
-import NotFound from './views/pages/NotFound/NotFound';
+import {MainLanding} from '@pages/landing';
+import {NotFound} from '@pages/notfound';
 
-function App() {
+// components
+import {Alerts} from '@components/features/alerts';
+
+const App: React.FC = () => {
+    const dispatch = useDispatchTyped();
+
+
     return (
         <ThemeProvider theme={theme}>
             <Alerts />
             <Router>
                 <Routes>
-                    <Route path="/" element={<Landing />} />
+                    <Route path="/" element={<MainLanding />} />
                     {/*<Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />*/}
                     {/*<Route path="/auth/*" element={<Auth />} />*/}
-                    {/*<Route path="*" element={<NotFound />} />*/}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
         </ThemeProvider>

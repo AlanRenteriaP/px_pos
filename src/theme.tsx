@@ -20,6 +20,7 @@ const theme = createTheme({
     typography: {
         fontFamily: 'Roboto',
     },
+    spacing: (factor:number) => `${1 * factor}px`,
 });
 
 export default theme;
