@@ -41,6 +41,19 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'static/media/[name].[hash:8].[ext]',
+                        },
+                    },
+                ],
+            },
+
         ],
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],

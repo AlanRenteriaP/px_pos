@@ -21,8 +21,10 @@
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
+      "@pages": ["src/pages/index"], // Add this line
       "@redux/*": ["src/redux/*"],
       "@services/*": ["src/services/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["src"]

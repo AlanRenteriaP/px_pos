@@ -5,8 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 // Pages
-import {MainLanding} from '@pages/landing';
-import {NotFound} from '@pages/notfound';
+
+import {MainLanding, NotFound,LoginPage} from '@pages';
 
 // components
 import {Alerts} from '@components/features/alerts';
@@ -22,7 +22,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<MainLanding />} />
                     {/*<Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />*/}
-                    {/*<Route path="/auth/*" element={<Auth />} />*/}
+                    <Route path="/loginpage" element={<LoginPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>

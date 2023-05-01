@@ -19,7 +19,7 @@ const MainLanding: React.FC = () => {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => handleButtonClick('/signing')}
+                        onClick={() => handleButtonClick('/loginpage')}
                     >
                         Sign In
                     </Button>
