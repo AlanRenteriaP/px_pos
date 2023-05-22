@@ -6,7 +6,7 @@ import theme from './theme';
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 // Pages
 
-import {MainLanding, NotFound,LoginPage} from '@pages';
+import {MainLanding, NotFound,LoginPage,Dashboard} from '@pages';
 
 // components
 import {Alerts} from '@components/features/alerts';
@@ -21,7 +21,7 @@ const App: React.FC = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<MainLanding />} />
-                    {/*<Route path="/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />*/}
+                    <Route path="/dashboard/*" element={<Dashboard />} />
                     <Route path="/loginpage" element={<LoginPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

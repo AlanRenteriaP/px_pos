@@ -1,133 +1,115 @@
 import * as React from 'react';
-import MuiAppBar from '@mui/material/AppBar';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import {makeStyles} from "@mui/styles";
-import logo from '../../../assets/media/logo-app.png';
-import {useSelector} from "react-redux";
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const drawerWidth = 240;
+import Menu from '@mui/material/Menu';
+import {Sidebar} from '@components/dashboard/drawer';
 
+const ResponsiveAppBar: React.FC = () => {
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const menuOpen = Boolean(anchorEl);
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundColor: theme.palette.primary.main + ' !important',
-    },
-    paper: {
-        margin: 0,
-        display: 'block',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '0',
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: drawerWidth,
-    },
-    appBar: {
-        backgroundColor: theme.palette.primary.main + ' !important',
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    }
-}));
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
-
-
-function ResponsiveAppBar() {
-    const classes = useStyles();
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const drawer_status = useSelector(state => state.menubar.isOpen);
-    // const user = useSelector(state => state.slice.user);
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
+    const toggleDrawer = (open: boolean) => (
+        event: React.KeyboardEvent | React.MouseEvent
+    ) => {
+        if (
+            event.type === 'keydown' &&
+            ((event as React.KeyboardEvent).key === 'Tab' ||
+                (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+            return;
+        }
+        setDrawerOpen(open);
     };
 
-
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
     };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const list = () => (
+        <Box
+            sx={{ width: 250 }}
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+        >
+            <List>
+                {['Home', 'About', 'Contact'].map((text) => (
+                    <ListItem button key={text}>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
 
     return (
-        <AppBar position="fixed"  className={classes.appBar} open={drawer_status} style={{paddingLeft: drawer_status ? 0 : 65 }}>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' },  fontFamily: 'monospace', fontWeight: 700,  letterSpacing: '.3rem', color: 'inherit',  textDecoration: 'none',}}>
-                        <img src={logo} alt="logo"  />
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                        onClick={toggleDrawer(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Beatrenger 0.1.0
                     </Typography>
-
-
-                    <Typography variant="h5"  noWrap component="a" href="" sx={{mr: 2,  display: { xs: 'flex', md: 'none' },  flexGrow: 1, fontFamily: 'monospace',  fontWeight: 700,  letterSpacing: '.3rem',   color: 'inherit', textDecoration: 'none'}}>
-                        <img src={logo} alt="logo"  />
-                    </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <BarChartIcon/>
-                    </Box>
-
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Alan Renteria" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                    >
+                        <Avatar sx={{ bgcolor: 'orange' }}>U</Avatar>
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={menuOpen}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>Settings</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
-            </Container>
-        </AppBar>
+            </AppBar>
+            <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+              <Sidebar/>
+            </Drawer>
+        </Box>
     );
 }
+
 export default ResponsiveAppBar;

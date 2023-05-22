@@ -25,14 +25,27 @@ import {
     ExpandMore,
 } from "@mui/icons-material";
 
-const sidebarItems = [
-    { label: "Dashboard", icon: <DashboardIcon />,
-        subItems: [
+interface SidebarItem {
+    label: string;
+    icon: JSX.Element;
+    subItems?: { label: string }[];
+    onClick?: () => void;
+    disabled?: boolean;
+    tooltip?: string;
+    badge?: number;
+    color?: "primary" | "secondary" | "error" | "info" | "success";
+}
+
+const sidebarItems: SidebarItem[] = [
+    { label: "Dashboard", icon: <DashboardIcon />, subItems: [
             { label: "Option 1" },
             { label: "Option 2" },
             { label: "Option 3" },
-        ], },
-    { label: "Orders", icon: <OrdersIcon />,
+        ],
+    },
+    {
+        label: "Orders",
+        icon: <OrdersIcon />,
         onClick: () => {
             console.log("Example item clicked");
         },
@@ -43,24 +56,24 @@ const sidebarItems = [
     },
     { label: "Menu Management", icon: <MenuIcon /> },
     { label: "Inventory Management", icon: <InventoryIcon /> },
-    { label: "Table Management", icon: <TableIcon />,
-        subItems: [
+    { label: "Table Management", icon: <TableIcon />, subItems: [
             { label: "Option 1" },
             { label: "Option 2" },
             { label: "Option 3" },
-        ], },
+        ],
+    },
     { label: "Staff Management", icon: <StaffIcon /> },
     { label: "Customer Management", icon: <CustomersIcon /> },
-    { label: "Promos & Discounts", icon: <PromotionsIcon />, disabled: true, },
+    { label: "Promos & Discounts", icon: <PromotionsIcon />, disabled: true },
     { label: "Reports", icon: <ReportsIcon /> },
     { label: "Settings", icon: <SettingsIcon /> },
     { label: "Support", icon: <SupportIcon /> },
 ];
 
-const Sidebar = ({ }) => {
-    const [expandedSubMenus, setExpandedSubMenus] = useState({});
+const Sidebar: React.FC = () => {
+    const [expandedSubMenus, setExpandedSubMenus] = useState<Record<string, boolean>>({});
 
-    const handleSubMenuToggle = (index) => {
+    const handleSubMenuToggle = (index: number) => {
         setExpandedSubMenus((prevState) => ({
             ...prevState,
             [index]: !prevState[index],
@@ -68,13 +81,14 @@ const Sidebar = ({ }) => {
     };
 
     return (
-
-        <Box  sx={{ width: 250, display: "flex", flexDirection: "column", height: "100%" }}>
+        <Box sx={{ width: 250, display: "flex", flexDirection: "column", height: "100%" }}>
             <List>
                 {sidebarItems.map((item, index) => (
                     <React.Fragment key={index}>
                         <Tooltip title={item.tooltip || ""}>
-                            <ListItem button onClick={() => {
+                            <ListItem
+                                button
+                                onClick={() => {
                                     if (item.subItems) {
                                         handleSubMenuToggle(index);
                                     }
@@ -82,7 +96,8 @@ const Sidebar = ({ }) => {
                                         item.onClick();
                                     }
                                 }}
-                                disabled={item.disabled}>
+                                disabled={item.disabled}
+                            >
                                 <ListItemIcon>
                                     {item.badge ? (
                                         <Badge badgeContent={item.badge} color={item.color || "error"}>
@@ -104,7 +119,7 @@ const Sidebar = ({ }) => {
                         </Tooltip>
                         {item.subItems && (
                             <Collapse
-                                in={expandedSubMenus[index]}
+                                in={!!expandedSubMenus[index]}
                                 timeout="auto"
                                 unmountOnExit
                             >
