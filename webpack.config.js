@@ -3,14 +3,14 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         publicPath: '/',
     },
     resolve: {
-        extensions: [".js",".jsx",".ts",".tsx",".css",".,json"],
+        extensions: [".js",".jsx",".ts",".tsx",".css",".json"],
         alias: {
             '@src': path.resolve(__dirname, 'src'), // Set '@src' as an alias for the 'src' folder
             '@components': path.resolve(__dirname,'src/components'), // Set '@components' as an alias for the 'components' folder
