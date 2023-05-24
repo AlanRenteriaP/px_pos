@@ -1,2 +1,2 @@
 export * from './features/alerts';
-export * from './navbar';
+export * from '../pages/dashboard/navbar';

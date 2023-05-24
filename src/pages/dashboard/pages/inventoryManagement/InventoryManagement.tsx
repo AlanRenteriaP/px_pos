@@ -1,13 +1,14 @@
 import React from 'react';
 
-export default function Materiaprima(){
+export default function InventoryManagement(){
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <h2>Materia Prima</h2>
+                    <h2> Inventory Management </h2>
                 </div>
             </div>
         </div>
     )
 }
+

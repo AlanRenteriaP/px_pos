@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { alert } from './slice/alerts.slice';
 import { reducer } from './slice';
-import { menubar } from '../navBar/adminNavBar/reducer';
+import { menubar } from '../navBar/adminNavBar/slice';
 import { activeComponent } from './slice/activeComponent.slice';
 
 interface AppState {

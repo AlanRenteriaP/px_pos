@@ -1,25 +1,39 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import Profile from '@components/dashboard/pages/Profile';
-
-import {ResponsiveAppBar} from '@components/navbar';
+import { Box, IconButton } from '@mui/material';
+import { MainAppBar } from './navigation/appBar';
+import { MainDrawer } from './navigation/drawer';
+// @ts-ignore
+import { useSpring, animated } from 'react-spring';
+import { useDispatchTyped ,useAppSelector } from '@src/hooks';
+import  { ActiveComponent }  from './pages';
+const drawerWidth = 255;
 
 function Dashboard() {
-    const [activeComponent, setActiveComponent] = useState(Profile);
-    // const drawer_status = useSelector(state => state.menubar.isOpen);
+    const isOpen = useAppSelector(state => state.appBar);
 
-    const ActiveComponent = activeComponent; // rename it for JSX
+    const props = useSpring({
+        to: { width: isOpen ? drawerWidth : 24 },
+        from: { width: isOpen ? 24 : drawerWidth },
+    });
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <ResponsiveAppBar/>
-            {/*<Maindrawer open={drawer_status} />*/}
-            {/*<Box component="div">*/}
-            {/*    <ActiveComponent />*/}
-            {/*</Box>*/}
+
+        <Box sx={{ display: 'flex', height: '100vh' }}>
+            <MainAppBar/>
+            <Box sx={{ flexShrink: 0, position: 'relative', pt: '65px' }}>
+
+                    <MainDrawer />
+
+
+            </Box>
+            <Box component="div" sx={{ flexGrow: 1, overflow: 'auto', pt: '65px',zIndex:99999 }}>
+
+                <ActiveComponent />
+            </Box>
         </Box>
     );
 }
 
 export default Dashboard;
+
+

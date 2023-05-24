@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { alertSlice } from './features/alert';
+import { alertSlice } from './features';
+import { appBarSlice, activeComponentSlice } from './dashboard'
 
 export const store = configureStore({
     reducer: {
         alert: alertSlice.reducer,
-        // Add other reducers here as needed
+        appBar: appBarSlice.reducer,
+        activeComponent: activeComponentSlice.reducer,
     },
 });
 

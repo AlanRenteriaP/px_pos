@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 
 // import { alerts } from './slice/alerts.slice';
 import { reducer } from '../auth/slice';
-import { menubar } from './adminNavBar/reducer';
-import { activeComponent } from './slice/activeComponent.slice';
+import { menubar } from './adminNavBar/slice';
+// import { activeComponent } from './slice/activeComponent.slice';
 
 interface AppState {
     alert: any;

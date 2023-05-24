@@ -15,7 +15,7 @@ const Alerts: React.FC = () => {
         alerts.forEach((alert) => {
             const timer = setTimeout(() => {
                 handleClose(alert.id);
-            }, 4000);
+            }, 40000);
 
             // Cleanup when component is unmounted or an alert is removed
             return () => {
@@ -24,7 +24,7 @@ const Alerts: React.FC = () => {
         });
     }, [alerts, dispatch]);
     return (
-        <div style={{ position: 'fixed', top: 10,right: 20,  padding: 50, zIndex: 1000,}}>
+        <div style={{ position: 'fixed', top: 65,right: 20,  padding: 10, zIndex: 1000,}}>
             {alerts.map((alert) => {
                 const { id, msg, alertType } = alert;
                 const severity = alertType as AlertColor;
