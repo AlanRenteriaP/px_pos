@@ -41,7 +41,14 @@ const Sidebar: React.FC = () => {
         { label: "Inventory Management", icon: <InventoryIcon />,disabled: false,
             onClick: () => {
                 dispatch(setActiveComponent('inventoryManagement'));
-            } },
+            },
+            subItems: [
+                { label: "Kitchen Inventory", icon: <DashboardIcon /> },
+                { label: "Coffee Bar Inventory" , icon: <DashboardIcon />},
+                {  label: "Bar Invetory",icon: <DashboardIcon /> },
+                {  label: "Front of the House Inventory",icon: <DashboardIcon /> }
+            ]
+        },
         { label: "Table Management", icon: <TableIcon />,disabled: true,  subItems: [
                 { label: "Option 1", icon: <DashboardIcon /> },
                 { label: "Option 2" , icon: <DashboardIcon />},
