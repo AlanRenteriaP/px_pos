@@ -1,66 +1,35 @@
-import { authConstants } from './constants';
-let auth = JSON.parse(localStorage.getItem('authState'));
-const initialState = auth ? {
-    auth
-    } : {
+// src/redux/auth/authSlice.ts
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AuthState } from './types';
+
+const initialState: AuthState = {
+    token: localStorage.getItem('token'),
     isAuthenticated: false,
-    user: {},
-    token: null,
-    isLoading: false,
-    error: null
 };
 
+const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        loginSuccess: (state, action: PayloadAction<string>) => {
+            localStorage.setItem('token', action.payload);
+            state.token = action.payload;
+            state.isAuthenticated = true;
+        },
+        loginFail: state => {
+            localStorage.removeItem('token');
+            state.token = null;
+            state.isAuthenticated = false;
+        },
+        logout: state => {
+            localStorage.removeItem('token');
+            state.token = null;
+            state.isAuthenticated = false;
+        },
+    },
+});
 
- export function reducer(state = initialState, action) {
-    switch (action.type) {
-        case authConstants.LOGIN_REQUEST:
-            return {
-                ...state,
-                isLoading: true
-            };
-        case authConstants.LOGIN_SUCCESS:
-            localStorage.setItem('authState', JSON.stringify({
-                isAuthenticated: true,
-                user: action.credentials.user,
-                token: action.credentials.token,
-                isLoading: false,
-                error: null
-            }));
-            return {
-                ...state,
-                isAuthenticated: true,
-                user: action.credentials.user,
-                token: action.credentials.token,
-                isLoading: false,
-                error: null
-            };
-        case authConstants.LOGIN_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.message
-            };
-        case authConstants.LOGOUT_REQUEST:
-            return {
-                ...state,
-                isLoading: true
-            };
-        case authConstants.LOGOUT_SUCCESS:
-            return {
-                ...state,
-                isAuthenticated: false,
-                user: {},
-                token: null,
-                isLoading: false,
-                error: null
-            };
-        case authConstants.LOGOUT_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload
-            };
-        default:
-            return state;
-    }
-}
+export const { loginSuccess, loginFail, logout } = authSlice.actions;
+
+export { authSlice };

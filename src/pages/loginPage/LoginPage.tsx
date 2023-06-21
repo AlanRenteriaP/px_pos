@@ -1,100 +1,71 @@
 import React from 'react';
 import { Box, Button, Container, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import Logo from '@assets/media/logo.svg'; // Replace with the correct path to your logo file
-// Create a theme instance.
+import Logo from '@assets/media/logo.svg';
+import { useDispatchTyped } from "@src/hooks";
+import { setAlert } from "@redux/features";
+import { login } from "@src/services";
+import { loginSuccess } from "@redux/auth";
 
-type FormData = {
-    email: string;
-    password: string;
-};
 
 function LoginPage() {
-    const { register, handleSubmit } = useForm<FormData>();
-    const navigate = useNavigate();
     const theme = useTheme();
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-        navigate('/dashboard');
-    };
+    const dispatch = useDispatchTyped();
+    const [credentials, setCredentials] = React.useState({ email: '', password: '' });
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+    async function handleSubmit(e:any) {
+        e.preventDefault();
+
+        if (credentials.email && credentials.password) {
+            dispatch(setAlert({ msg: "Attempting Login", alertType: "info" }));
+            try {
+                const token = await login(credentials);
+                dispatch(setAlert({ msg: "Login Successful", alertType: "success" }));
+                dispatch(loginSuccess(token));
+                setIsLoggedIn(true);
+            } catch (error:any) {
+                dispatch(setAlert({ msg: error.message, alertType: "warning" }));
+            }
+        } else {
+            dispatch(setAlert({ msg: "Email and Password must not be empty", alertType: "info" }));
+        }
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to="/dashboard" />;
+    }
+
+    // Rest of your component JSX...
 
     return (
-        <Box
-            sx={{
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-        <Container
-            maxWidth="xs"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                paddingTop: 3,
-                paddingBottom: 3,
-            }}
-        >
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '100vh',
-                    paddingTop: 3,
-                    paddingBottom: 3,
-                }}
-            >
-                <Container maxWidth="xs">
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            minHeight: '100vh',
-                            paddingTop: 3,
-                            paddingBottom: 3,
-                        }}
-                    >
-                        <img src={Logo} alt="Logo" style={{ marginBottom: '24px' }} /> {/* Add your logo here */}
-                        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%', mt: 3 ,backgroundColor:'white',padding: 20 }}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                autoComplete="email"
-                                autoFocus
-                                {...register('email')}
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                {...register('password')}
-                            />
-                            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                                Login
-                            </Button>
-                        </Box>
-                    </Box>
-                </Container>
-            </Box>
-        </Container>
-</Box>
+        // Rest of your component JSX...
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', mt: 3 ,backgroundColor:'white',padding: 20 }}>
+            <TextField
+                id="outlined-username-input"
+                label="Username"
+                type="text"
+                autoComplete="current-username"
+                style={{  width:'100%', marginTop:'10px'}}
+                value={credentials.email}
+                onChange={(event) => setCredentials({ ...credentials, email: event.target.value })}
+                color="secondary"
+            />
+            <TextField
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                style={{  width:'100%', marginTop:'10px'}}
+                value={credentials.password}
+                onChange={(event) => setCredentials({ ...credentials, password: event.target.value })}
+                color="secondary"
+            />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                Login
+            </Button>
+        </Box>
     );
 }
 

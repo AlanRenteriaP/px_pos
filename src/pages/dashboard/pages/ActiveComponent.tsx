@@ -15,7 +15,6 @@ export default function ActiveComponent()  {
         case 'inventoryManagement':
             ActiveComponent = inventoryManagement;
             break;
-        // ...
         default:
             ActiveComponent = DashboardProfile;
     }

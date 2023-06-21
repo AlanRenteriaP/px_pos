@@ -20,16 +20,12 @@ function Dashboard() {
 
         <Box sx={{ display: 'flex', height: '100vh' }}>
             <MainAppBar/>
-            <Box sx={{ flexShrink: 0, position: 'relative', pt: '65px' }}>
-
+                <Box sx={{ flexShrink: 0, position: 'relative', pt: '65px' }}>
                     <MainDrawer />
-
-
-            </Box>
-            <Box component="div" sx={{ flexGrow: 1, overflow: 'auto', pt: '65px',zIndex:99999 }}>
-
-                <ActiveComponent />
-            </Box>
+                </Box>
+                <Box component="div" sx={{ flexGrow: 1, overflow: 'auto', pt: '65px',zIndex:10000, backgroundColor: 'white'}}>
+                         <ActiveComponent />
+                </Box>
         </Box>
     );
 }

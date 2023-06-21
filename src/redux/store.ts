@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { alertSlice } from './features';
 import { appBarSlice, activeComponentSlice } from './dashboard'
+import { authSlice } from "./auth";
 
 export const store = configureStore({
     reducer: {
         alert: alertSlice.reducer,
         appBar: appBarSlice.reducer,
         activeComponent: activeComponentSlice.reducer,
+        auth: authSlice.reducer,
     },
 });
 
