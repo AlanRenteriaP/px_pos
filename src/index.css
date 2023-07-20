@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.my-table .MuiTableBody-root .MuiTableRow-root:nth-child(odd) {
+  background-color: white;
+}
+
+.my-table .MuiTableBody-root .MuiTableRow-root:nth-child(even) {
+  background-color: lightgrey;
+}

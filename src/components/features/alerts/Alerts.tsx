@@ -24,7 +24,7 @@ const Alerts: React.FC = () => {
         });
     }, [alerts, dispatch]);
     return (
-        <div style={{ position: 'fixed', top: 65,right: 20,  padding: 10, zIndex: 1000,}}>
+        <div style={{ position: 'fixed', top: 65,right: 20,  padding: 10, zIndex: 100000000,}}>
             {alerts.map((alert) => {
                 const { id, msg, alertType } = alert;
                 const severity = alertType as AlertColor;

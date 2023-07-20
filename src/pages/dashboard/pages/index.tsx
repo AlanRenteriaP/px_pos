@@ -1,1 +1,3 @@
-export { default as ActiveComponent} from './ActiveComponent';
+export * from './dashboardProfile';
+export * from './inventoryManagement';
+// export * from './menuManagement';

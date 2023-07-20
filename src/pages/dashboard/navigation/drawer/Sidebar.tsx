@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Badge, Box, Collapse, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 import { Dashboard as DashboardIcon, ShoppingCart as OrdersIcon, RestaurantMenu as MenuIcon, Store as InventoryIcon, People as StaffIcon, EventSeat as TableIcon, AccountCircle as CustomersIcon, LocalOffer as PromotionsIcon, Description as ReportsIcon, Settings as SettingsIcon, Help as SupportIcon, ExitToApp as ExitToAppIcon, ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 import { setActiveComponent } from '@redux/dashboard';
+import { logout } from '@redux/auth';
+
 interface SidebarItem {
     label: string;
     icon: JSX.Element;
@@ -18,6 +21,7 @@ interface SidebarItem {
 const Sidebar: React.FC = () => {
     const dispatch = useDispatchTyped();
     const [expandedSubMenus, setExpandedSubMenus] = useState<Record<string, boolean>>({});
+    const navigate = useNavigate();
 
     const handleSubMenuToggle = (index: number) => {
         setExpandedSubMenus((prevState) => ({
@@ -29,7 +33,7 @@ const Sidebar: React.FC = () => {
     const sidebarItems: SidebarItem[] = [
         { label: "Dashboard", icon: <DashboardIcon />,
             onClick: () => {
-                dispatch(setActiveComponent('Profile'));
+                navigate('/dashboard');
             }
         }, { label: "Orders", icon: <OrdersIcon />,
             disabled: true,
@@ -40,7 +44,7 @@ const Sidebar: React.FC = () => {
         { label: "Menu Management", icon: <MenuIcon /> ,disabled: true},
         { label: "Inventory Management", icon: <InventoryIcon />,disabled: false,
             onClick: () => {
-                dispatch(setActiveComponent('inventoryManagement'));
+                navigate('/dashboard/InventoryManagement');
             },
             subItems: [
                 { label: "Kitchen Inventory", icon: <DashboardIcon /> },
@@ -64,7 +68,11 @@ const Sidebar: React.FC = () => {
     const bottomSidebarItems: SidebarItem[] = [
         { label: "Settings", icon: <SettingsIcon /> },
         { label: "Support", icon: <SupportIcon /> },
-        {label: "Logout", icon: <ExitToAppIcon /> },
+        {label: "Logout", icon: <ExitToAppIcon />,
+            onClick: () => {
+            console.log('logout');
+                dispatch(logout());
+            } },
     ];
 
     const renderSidebarItems = (items: SidebarItem[]) => items.map((item, index) => (

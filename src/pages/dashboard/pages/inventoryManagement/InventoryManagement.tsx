@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
 import { Grid, Button, Drawer, Box, Typography } from '@mui/material';
 import InventoryTable from './InventoryTable';
-import RawMaterialForm from './RawMaterialForm'; // import your form component
-import ProuductForm from './inventoryForms/ProductForm'; // import your form component
-export default function InventoryManagement() {
-    const [drawerOpen, setDrawerOpen] = useState(false);
+import ProductVariantForm from './inventoryForms/ProductVariantForm';
+import ProductForm from './inventoryForms/ProductForm';
 
-    const handleDrawerOpen = () => {
-        setDrawerOpen(true);
+export default function InventoryManagement() {
+    const [productDrawerOpen, setProductDrawerOpen] = useState(false);
+    const [productVariantDrawerOpen, setProductVariantDrawerOpen] = useState(false);
+    const [refreshData, setRefreshData] = useState(false);
+
+    const handleProductDrawerOpen = () => {
+        setProductDrawerOpen(true);
     };
 
-    const handleDrawerClose = () => {
-        setDrawerOpen(false);
+    const handleProductDrawerClose = () => {
+        setProductDrawerOpen(false);
+    };
+
+    const handleProductAdd = () => {
+        setRefreshData(prev => !prev);
+        handleProductDrawerClose();
     };
 
     return (
-        <div className="container" >
+        <div className="container">
             <Grid container spacing={3}>
-                <Grid item xs={12} display="flex" justifyContent="space-between" alignItems="center">
-                    <h2>Inventory Management</h2>
-                    <Button variant="contained" color="primary" onClick={handleDrawerOpen}>+ ADD</Button>
+                <Grid item xs={12}>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h2">Inventory Management</Typography>
+                        <Button variant="contained" color="primary" onClick={handleProductDrawerOpen}>+ ADD PRODUCT</Button>
+                    </Box>
                 </Grid>
                 <Grid item xs={12}>
-                    <InventoryTable />
+                    <InventoryTable refresh={refreshData} />
                 </Grid>
             </Grid>
-            <Drawer anchor="bottom" open={drawerOpen} onClose={handleDrawerClose} variant="temporary" sx={{zIndex:9999999}} >
+            <Drawer anchor="bottom" open={productDrawerOpen} onClose={handleProductDrawerClose} sx={{zIndex:9999999}} variant="temporary">
                 <Box
                     sx={{
                         width: '100%',
@@ -35,12 +45,10 @@ export default function InventoryManagement() {
                         flexDirection: 'column',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        zIndex:999999,
                         padding:'50px'
                     }}
                 >
-
-                    <ProuductForm  />
+                    <ProductForm onProductAdd={handleProductAdd} />
                 </Box>
             </Drawer>
         </div>

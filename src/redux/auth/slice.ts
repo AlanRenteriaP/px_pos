@@ -3,9 +3,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState } from './types';
 
+const token = localStorage.getItem('token');
+
 const initialState: AuthState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: false,
+    token: token,
+    isAuthenticated: !!token, //token ? true : false,
 };
 
 const authSlice = createSlice({
@@ -23,6 +25,7 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
         },
         logout: state => {
+            console.log('logout reducer called');
             localStorage.removeItem('token');
             state.token = null;
             state.isAuthenticated = false;

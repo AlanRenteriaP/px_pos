@@ -1,36 +1,44 @@
-import React, { useState, ChangeEvent } from 'react';
-import { TextField, Select, MenuItem, FormControl, InputLabel, Box, Paper, SelectChangeEvent,Button  } from '@mui/material';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { TextField,  Box, Paper, SelectChangeEvent,Button  } from '@mui/material';
+import { useDispatchTyped } from '@src/hooks';
+import { setAlert } from '@redux/features/alert';
 
-const vendors = ['Vendor 1', 'Vendor 2', 'Vendor 3', 'Vendor 4', 'Vendor 5', 'Vendor 6'];
-const units = ['ml', 'k', 'gram', 'l', 'ounce', 'pound', 'gallon', 'quart', 'pint', 'cup', 'fluid ounce', 'milligram', 'kilogram', 'metric ton', 'long ton', 'short ton', 'pound-force', 'kilopond'];
+interface ProductFormProps {
+    onProductAdd: () => void;  // Declare a function type prop
+}
 
-function ProductForm() {
-    const [product, setProduct] = useState({
+const ProductForm: React.FC<ProductFormProps> = ({ onProductAdd }) => {  // Include the prop in the function parameters
+    const dispatch = useDispatchTyped();
+    const [product, setSuperProduct] = useState({
         product_name: '',
-        quantity: '',
-        vendors: [],
-        unit: '',
-        price: ''
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(product);
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault(); // prevent the form from doing a default form submission
+        fetch('http://localhost:8080/invmanagement/add_product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productName: product.product_name }), // send productName to match server-side expectation
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                console.log(data.message);
+                dispatch(setAlert({  msg: data.message, alertType: "success" }));
+                onProductAdd();  // Call the function prop passed from the parent component
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     };
 
-
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setProduct({
+        setSuperProduct({
             ...product,
             [e.target.name]: e.target.value
         });
-    };
-
-    const handleSelectChange = (e: SelectChangeEvent<string | string[]>) => {
-        const { name = '', value } = e.target;
-        setProduct((prevProduct) => ({
-            ...prevProduct,
-            [name]: value,
-        }));
     };
 
     return (
@@ -38,34 +46,6 @@ function ProductForm() {
             <form onSubmit={handleSubmit} >
                 <Box display="flex" flexDirection="column" gap="1em">
                     <TextField name="product_name" label="Product Name" value={product.product_name} onChange={handleTextChange} />
-                    <TextField name="quantity" label="Quantity" value={product.quantity} onChange={handleTextChange} />
-                    <FormControl>
-                        <InputLabel id="vendors-label">Vendors</InputLabel>
-                        <Select name="vendors" labelId="vendors-label" multiple value={product.vendors} onChange={handleSelectChange}
-                                MenuProps={{
-                                    style: {
-                                        zIndex: 999999999999999999 // Adjust as needed
-                                    }
-                                }}>
-                            {vendors.map((vendor, index) => (
-                                <MenuItem key={index} value={vendor}>{vendor}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel id="unit-label">Unit</InputLabel>
-                        <Select name="unit" labelId="unit-label" value={product.unit} onChange={handleSelectChange}
-                                MenuProps={{
-                                    style: {
-                                        zIndex: 99999999999999 // Adjust as needed
-                                    }
-                                }}>
-                            {units.map((unit, index) => (
-                                <MenuItem key={index} value={unit}>{unit}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <TextField name="price" label="Price" value={product.price} onChange={handleTextChange} />
                 </Box>
                 <Box display="flex" justifyContent="center" marginY={2}>
                     <Button type="submit" variant="contained" color="primary" style={{margin:10}}>

@@ -1,1 +1,1 @@
-export {default as inventoryManagement} from './InventoryManagement';
+export {default as InventoryManagement} from './InventoryManagement';
