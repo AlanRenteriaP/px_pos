@@ -3,6 +3,7 @@ import { Grid, Button, Drawer, Box, Typography } from '@mui/material';
 import InventoryTable from './InventoryTable';
 import ProductVariantForm from './inventoryForms/ProductVariantForm';
 import ProductForm from './inventoryForms/ProductForm';
+import { InventoryBar } from '../inventoryPages';
 
 export default function InventoryManagement() {
     const [productDrawerOpen, setProductDrawerOpen] = useState(false);

@@ -9,7 +9,7 @@ import { logout } from '@redux/auth';
 interface SidebarItem {
     label: string;
     icon: JSX.Element;
-    subItems?: { label: string; icon?: JSX.Element }[];
+    subItems?: { label: string; icon?: JSX.Element; onClick?: () => void; }[];
     onClick?: () => void;
     disabled?: boolean;
     tooltip?: string;
@@ -49,7 +49,12 @@ const Sidebar: React.FC = () => {
             subItems: [
                 { label: "Kitchen Inventory", icon: <DashboardIcon /> },
                 { label: "Coffee Bar Inventory" , icon: <DashboardIcon />},
-                {  label: "Bar Invetory",icon: <DashboardIcon /> },
+                {  label: "Bar Invetory",icon: <DashboardIcon /> ,
+                    onClick: () => {
+                        navigate('/dashboard/InventoryManagement/InventoryBar');
+                        console.log('InventoryBar');
+                    }
+                    },
                 {  label: "Front of the House Inventory",icon: <DashboardIcon /> }
             ]
         },
@@ -113,7 +118,12 @@ const Sidebar: React.FC = () => {
                 <Collapse in={expandedSubMenus[index]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         {item.subItems.map((subItem, subIndex) => (
-                            <ListItem button key={subIndex} sx={{ pl: 4 }}>
+                            <ListItem
+                                button
+                                key={subIndex}
+                                sx={{ pl: 4 }}
+                                onClick={subItem.onClick}  // Add this line
+                            >
                                 {subItem.icon && <ListItemIcon>{subItem.icon}</ListItemIcon>}
                                 <ListItemText primary={subItem.label} />
                             </ListItem>

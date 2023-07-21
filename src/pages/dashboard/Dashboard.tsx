@@ -10,6 +10,7 @@ const drawerWidth = 255;
 
 import { DashboardProfile,InventoryManagement  } from './pages'
 
+import { InventoryBar } from './pages/inventoryPages';
 function Dashboard() {
     const isOpen = useAppSelector(state => state.appBar);
 
@@ -29,7 +30,7 @@ function Dashboard() {
                     <Routes>
                         <Route path="/" element={<DashboardProfile />} />
                         <Route path="/InventoryManagement" element={<InventoryManagement />} />
-                        {/*<Route path="/page3" element={<Page3 />} />*/}
+                        <Route path="/InventoryManagement/InventoryBar" element={<InventoryBar />} />
                         {/*<Route path="*" element={<NotFound />} />*/}
                     </Routes>
                 </Box>
