@@ -1,19 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import {Box, Button, Drawer} from '@mui/material';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Button from '@mui/material/Button';
 import ProductVariantForm from "@pages/dashboard/pages/inventoryManagement/inventoryForms/ProductVariantForm";
-import { styled } from '@mui/system';
+import Drawer from '@mui/material/Drawer';
 
-
-const EvenRow = styled('div')({
-    backgroundColor: 'lightgrey',
-});
-
-const OddRow = styled('div')({
-    backgroundColor: 'white',
-});
-// Updated InventoryTable component
-export type Product = {
+type Product = {
     id: string;
     sku: string;
     product_name: string;
@@ -23,8 +27,82 @@ export type Product = {
     unit: string;
     price: number;
     subRows?: Product[];
-    actions?: any;
 };
+
+interface RowProps {
+    row: Product;
+    handleProductVariantAdd: (productId: number, productName: string) => void;
+    handleProductVariantDrawerOpen: (productId: number, productName: string) => void;
+}
+
+const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
+    const [open, setOpen] = React.useState(false);
+
+    return (
+        <React.Fragment>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableCell>
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}
+                    >
+                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {row.product_name}
+                </TableCell>
+                <TableCell align="left">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleProductVariantDrawerOpen(Number(row.id), row.product_name)}
+                    >
+                        Add Sub-Info
+                    </Button>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Sub Rows
+                            </Typography>
+                            <Table size="small" aria-label="purchases">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>SKU</TableCell>
+                                        <TableCell>Vendor</TableCell>
+                                        <TableCell>Presentation</TableCell>
+                                        <TableCell align="right">Quantity</TableCell>
+                                        <TableCell align="right">Unit</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {row.subRows?.map((subRow) => (
+                                        <TableRow key={subRow.id}>
+                                            <TableCell component="th" scope="row">
+                                                {subRow.sku}
+                                            </TableCell>
+                                            <TableCell>{subRow.vendor}</TableCell>
+                                            <TableCell>{subRow.presentation}</TableCell>
+                                            <TableCell align="right">{subRow.quantity}</TableCell>
+                                            <TableCell align="right">{subRow.unit}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </React.Fragment>
+    );
+};
+
+
 interface InventoryTableProps {
     refresh: boolean;
 }
@@ -35,20 +113,11 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ refresh }) => {
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
     const [selectedProductName, setSelectedProductName] = useState<string | null>(null);
     const [refreshData, setRefreshData] = useState(false);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         fetchProducts();
     }, [refresh]);
-
-    const handleProductVariantDrawerClose = () => {
-        setProductVariantDrawerOpen(false);
-    };
-
-    const handleProductVariantDrawerOpen = (productId: number, productName: string) => {
-        setSelectedProductId(productId);
-        setSelectedProductName(productName);
-        setProductVariantDrawerOpen(true);
-    };
 
     const fetchProducts = () => {
         fetch(`http://localhost:8080/invmanagement/get_products_and_variants`)
@@ -57,68 +126,69 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ refresh }) => {
             .catch(error => console.error('Error:', error));
     };
 
+    const handleProductVariantDrawerOpen = (productId: number, productName: string) => {
+        setSelectedProductId(productId);
+        setSelectedProductName(productName);
+        console.log(productId, productName);
+        setProductVariantDrawerOpen(true);
+    };
+
     const handleProductVariantAdd = () => {
         setRefreshData(prev => !prev);
+        fetchProducts();
         handleProductVariantDrawerClose();
     };
 
-    const columns = useMemo<MRT_ColumnDef<Product>[]>(
-        () => [
-            { accessorKey: 'id', header: 'id' },
-            { accessorKey: 'sku', header: 'SKU' },
-            { accessorKey: 'product_name', header: 'Product Name' },
-            { accessorKey: 'vendor', header: 'Vendor' },
-            { accessorKey: 'presentation', header: 'Presentation' },
-            { accessorKey: 'quantity', header: 'Quantity' },
-            { accessorKey: 'unit', header: 'Unit' },
-            { accessorKey: 'price', header: 'Price' },
-            {
-                accessorKey: 'actions',
-                header: 'Actions',
-                Cell: ({ row }) => (
-                    <Button sx={{backgroundColor: 'primary.main', color: 'white'}} onClick={() => handleProductVariantDrawerOpen(Number(row.original.id), row.original.product_name)}>
-                        Add Sub-Info
-                    </Button>
-                ),
-            },
-        ],
-        []
-    );
-
+    const handleProductVariantDrawerClose = () => {
+        setProductVariantDrawerOpen(false);
+    };
 
     return (
-        <>
-
-            <div className="my-table">
-                <MaterialReactTable
-                    columns={columns}
-                    data={data}
-                    enableExpanding
-                    enableExpandAll
-                />
-            </div>
-            <Drawer anchor="bottom" open={productVariantDrawerOpen} onClose={handleProductVariantDrawerClose} sx={{ zIndex: 9999999 }} variant="temporary">
-                <Box
-                    sx={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        backgroundColor: 'primary.main',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '50px',
-                    }}
-                >
-                    {selectedProductId && selectedProductName && (
-                        <ProductVariantForm
-                            onProductVariantAdd={handleProductVariantAdd}
-                            productId={selectedProductId}
-                            productName={selectedProductName}
-                        />  )}
-                </Box>
+        <TableContainer component={Paper}>
+            <input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+            />
+            <Table aria-label="collapsible table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell />
+                        <TableCell align="left">Product Name</TableCell>
+                        <TableCell align="left">Add Product</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {data.filter(row => row.product_name.toLowerCase().includes(search.toLowerCase())).map((row) => (
+                        <Row
+                            key={row.id}
+                            row={row}
+                            handleProductVariantAdd={handleProductVariantAdd}
+                            handleProductVariantDrawerOpen={handleProductVariantDrawerOpen}
+                        />
+                    ))}
+                </TableBody>
+            </Table>
+            <Drawer
+                anchor="bottom"
+                open={productVariantDrawerOpen}
+                sx={{ zIndex: 9999999 }}
+                onClose={(event, reason) => {
+                    if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+                        handleProductVariantDrawerClose();
+                    }
+                }}
+            >
+                {selectedProductId !== null && selectedProductName !== null &&
+                    <ProductVariantForm
+                        onProductVariantAdd={handleProductVariantAdd}
+                        productId={selectedProductId}
+                        productName={selectedProductName}
+                    />
+                }
             </Drawer>
-        </>
+        </TableContainer>
     );
 };
 

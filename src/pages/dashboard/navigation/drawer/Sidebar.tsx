@@ -47,15 +47,26 @@ const Sidebar: React.FC = () => {
                 navigate('/dashboard/InventoryManagement');
             },
             subItems: [
-                { label: "Kitchen Inventory", icon: <DashboardIcon /> },
-                { label: "Coffee Bar Inventory" , icon: <DashboardIcon />},
+                { label: "Kitchen Inventory", icon: <DashboardIcon /> ,
+                    onClick: () => {
+                        navigate('/dashboard/InventoryManagement/InventoryKitchen');
+                        console.log('InventoryBar');
+                    }},
+                { label: "Coffee Bar Inventory" , icon: <DashboardIcon />,
+                    onClick: () => {
+                        navigate('/dashboard/InventoryManagement/InventoryCoffee');
+                        console.log('InventoryBar');
+                    }},
                 {  label: "Bar Invetory",icon: <DashboardIcon /> ,
                     onClick: () => {
                         navigate('/dashboard/InventoryManagement/InventoryBar');
                         console.log('InventoryBar');
                     }
                     },
-                {  label: "Front of the House Inventory",icon: <DashboardIcon /> }
+                {  label: "Front of the House Inventory",icon: <DashboardIcon />,onClick: () => {
+                        navigate('/dashboard/InventoryManagement/InventoryFH');
+                        console.log('InventoryBar');
+                    } }
             ]
         },
         { label: "Table Management", icon: <TableIcon />,disabled: true,  subItems: [
