@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Button, Drawer, Box, Typography } from '@mui/material';
 import InventoryTable from './InventoryTable';
-import ProductVariantForm from './inventoryForms/ProductVariantForm';
 import ProductForm from './inventoryForms/ProductForm';
-import { InventoryBar } from '../inventoryPages';
 
 export default function InventoryManagement() {
     const [productDrawerOpen, setProductDrawerOpen] = useState(false);
@@ -32,11 +30,12 @@ export default function InventoryManagement() {
                         <Button variant="contained" color="primary" onClick={handleProductDrawerOpen}>+ ADD PRODUCT</Button>
                     </Box>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} >
+
                     <InventoryTable refresh={refreshData} />
                 </Grid>
             </Grid>
-            <Drawer anchor="bottom" open={productDrawerOpen} onClose={handleProductDrawerClose} sx={{zIndex:9999999}} variant="temporary">
+            <Drawer anchor="bottom" open={productDrawerOpen} onClose={handleProductDrawerClose}  variant="temporary">
                 <Box
                     sx={{
                         width: '100%',

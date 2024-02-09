@@ -11,5 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="brains" />
     <orderEntry type="module" module-name="Brains" />
+    <orderEntry type="module" module-name="Muitoolpad" />
   </component>
 </module>

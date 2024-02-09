@@ -41,7 +41,10 @@ const Sidebar: React.FC = () => {
             badge: 5,
             color: "primary",
         },
-        { label: "Menu Management", icon: <MenuIcon /> ,disabled: true},
+        { label: "Menu Management", icon: <MenuIcon /> ,disabled: false,
+            onClick: () => {
+                navigate('/dashboard/MenuManagemente');
+            },},
         { label: "Inventory Management", icon: <InventoryIcon />,disabled: false,
             onClick: () => {
                 navigate('/dashboard/InventoryManagement');

@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Button from '@mui/material/Button';
@@ -25,6 +26,8 @@ type Product = {
     presentation: string;
     quantity: number;
     unit: string;
+    measurement_id: number;
+    measurement_name: string;
     price: number;
     subRows?: Product[];
 };
@@ -52,6 +55,9 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                 </TableCell>
                 <TableCell component="th" scope="row">
                     {row.product_name}
+                </TableCell>
+                <TableCell align="left">
+                    {row.measurement_name}
                 </TableCell>
                 <TableCell align="left">
                     <Button
@@ -144,22 +150,29 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ refresh }) => {
     };
 
     return (
-        <TableContainer component={Paper}>
-            <input
-                type="text"
-                placeholder="Search..."
-                value={search}
+        <TableContainer component={Paper}   style={{ boxShadow: 'none' }}   >
+            <TextField
+                id="outlined-helperText"
+                label="Search Box"
+                sx={{marginTop:'10px'}}
+                helperText="Search by product name or Category"
                 onChange={e => setSearch(e.target.value)}
             />
+            <Button variant="contained" color="secondary" sx={{marginLeft:'10px',marginTop:'10px'}}> Search by Product Name</Button>
+            <Button variant="contained" color="primary" sx={{marginLeft:'10px',marginTop:'10px'}}> Search by Category</Button>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
                         <TableCell />
                         <TableCell align="left">Product Name</TableCell>
+                        <TableCell align="left">Unit of Measurement</TableCell>
                         <TableCell align="left">Add Product</TableCell>
+
+
                     </TableRow>
                 </TableHead>
                 <TableBody>
+
                     {data.filter(row => row.product_name.toLowerCase().includes(search.toLowerCase())).map((row) => (
                         <Row
                             key={row.id}
