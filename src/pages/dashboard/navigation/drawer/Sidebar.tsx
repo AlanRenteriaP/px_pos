@@ -85,7 +85,10 @@ const Sidebar: React.FC = () => {
     ];
 
     const bottomSidebarItems: SidebarItem[] = [
-        { label: "Settings", icon: <SettingsIcon /> },
+        { label: "Settings", icon: <SettingsIcon />,
+            onClick: () => {
+                navigate('/dashboard/ProfileSettings');
+        }},
         { label: "Support", icon: <SupportIcon /> },
         {label: "Logout", icon: <ExitToAppIcon />,
             onClick: () => {

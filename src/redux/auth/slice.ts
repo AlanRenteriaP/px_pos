@@ -30,9 +30,15 @@ const authSlice = createSlice({
             state.token = null;
             state.isAuthenticated = false;
         },
+        registerSuccess: (state, action: PayloadAction<string>) => {
+            localStorage.setItem('token', action.payload);
+            state.token = action.payload;
+            state.isAuthenticated = true;
+        },
     },
 });
 
 export const { loginSuccess, loginFail, logout } = authSlice.actions;
+export const { registerSuccess } = authSlice.actions;
 
 export { authSlice };

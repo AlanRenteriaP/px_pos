@@ -3,12 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { useDispatchTyped ,useAppSelector } from '@src/hooks';
-import { toggleAppBar } from '@redux/dashboard/mainAppBar';
+import {useDispatchTyped ,useAppSelector} from '@src/hooks';
+import {toggleAppBar} from '@redux/dashboard/mainAppBar';
+import {logout} from "@redux/auth";
+
 const MainAppBar: React.FC = () => {
     const dispatch = useDispatchTyped();
     const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -38,13 +39,10 @@ const MainAppBar: React.FC = () => {
         setAnchorEl(null);
     };
 
-
-
     return (
         <AppBar position="fixed" sx={{ zIndex: 9999999, height: 65 }}>
                 <Toolbar>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={toggleDrawer(true)}>
-                        <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Beatrenger 0.1.0
@@ -53,9 +51,9 @@ const MainAppBar: React.FC = () => {
                         <Avatar sx={{ bgcolor: 'orange' }}>U</Avatar>
                     </IconButton>
                     <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{vertical: 'top', horizontal: 'right',}} keepMounted transformOrigin={{vertical: 'top', horizontal: 'right',}} open={menuOpen} onClose={handleClose}>
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>Settings</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick = {handleClose}> Profile </MenuItem>
+                        <MenuItem onClick = {handleClose}> Settings </MenuItem>
+                        <MenuItem onClick = {() => {console.log('logout'); dispatch(logout()); }}> Logout </MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

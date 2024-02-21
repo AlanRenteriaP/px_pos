@@ -28,7 +28,7 @@ const MainLanding: React.FC = () => {
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => handleButtonClick('/signup')}
+                        onClick={() => handleButtonClick('/registerpage')}
                     >
                         Sign Up
                     </Button>

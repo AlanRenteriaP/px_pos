@@ -8,18 +8,12 @@ const drawerWidth = 255;
 
 const miniDrawerWidth = 60;
 
-
-
-
-
-
 export default function MiniDrawer() {
 
     const theme = useTheme();
      const isOpen = useAppSelector(state => state.appBar);
 
     return (
-
         <Drawer anchor="left" variant="permanent"  sx={{width: drawerWidth, flexShrink: 0, whiteSpace: 'nowrap', boxSizing: 'border-box',
             ...(isOpen && {
                 width: drawerWidth,

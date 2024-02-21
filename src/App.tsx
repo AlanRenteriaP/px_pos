@@ -5,7 +5,7 @@ import theme from './theme';
 // import { useDispatchTyped, useAppSelector } from '@src/hooks';
 // import { setAlert } from '@redux/features/alert';
 
-import { MainLanding, NotFound, LoginPage, Dashboard } from '@pages';
+import { MainLanding, NotFound, LoginPage, Dashboard, RegisterPage } from '@pages';
 
 import { Alerts, PrivateRoute, PrivateWrapper } from '@components/features';
 
@@ -26,10 +26,11 @@ const App: React.FC = () => {
             <Alerts />
             <Router>
                 <Routes>
-                    <Route path="/" element={<MainLanding />} />
-                    <Route path="/dashboard/*" element={<PrivateWrapper><Dashboard /></PrivateWrapper>} />
-                    <Route path="/loginpage" element={<LoginPage />} />
-                    <Route path="*" element={<NotFound />} />
+                    <Route path = "/" element = { <MainLanding/>} />
+                    <Route path = "/dashboard/*" element = { <PrivateWrapper><Dashboard /></PrivateWrapper> } />
+                    <Route path = "/loginpage" element = { <LoginPage/> } />
+                    <Route path = "/registerpage" element = { <RegisterPage/> } />
+                    <Route path = "*" element = { <NotFound/> } />
                 </Routes>
                 </Router>
         </ThemeProvider>

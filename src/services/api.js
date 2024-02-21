@@ -14,6 +14,21 @@ export const login = async (credentials) => {
     return token;
 };
 
+export const register = async (credentials) => {
+    const response = await fetch('http://localhost:8080/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+        throw new Error('Register failed');
+    }
+
+    const { token } = await response.json();
+    return token;
+};
+
 
 export async function fetchWithToken(url, options = {}) {
     const token = localStorage.getItem('token'); // Retrieve token from local storage

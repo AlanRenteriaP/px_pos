@@ -8,7 +8,7 @@ import { useSpring, animated } from 'react-spring';
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 const drawerWidth = 255;
 
-import { DashboardProfile,InventoryManagement,MenuManagement  } from './pages'
+import { DashboardProfile, InventoryManagement, MenuManagement, ProfileSettings  } from './pages'
 
 import { InventoryBar, InventoryCoffee , InventoryKitchen,InventoryFH } from './pages/inventoryManagement/inventoryPages';
 function Dashboard() {
@@ -20,7 +20,6 @@ function Dashboard() {
     });
 
     return (
-
         <Box sx={{ display: 'flex', height: '100vh' }}>
             <MainAppBar/>
                 <Box sx={{ flexShrink: 0, position: 'relative', pt: '65px',zIndex:'1' }}>
@@ -35,6 +34,7 @@ function Dashboard() {
                         <Route path="/InventoryManagement/InventoryFH" element={<InventoryFH />} />
                         <Route path="/InventoryManagement/InventoryBar" element={<InventoryBar />} />
                         <Route path="/MenuManagemente" element={<MenuManagement />} />
+                        <Route path="/ProfileSettings" element={<ProfileSettings />} />
                         {/*<Route path="*" element={<NotFound />} />*/}
                     </Routes>
                 </Box>

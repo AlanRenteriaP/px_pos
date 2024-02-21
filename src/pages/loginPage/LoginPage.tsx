@@ -43,10 +43,10 @@ function LoginPage() {
         // Rest of your component JSX...
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', mt: 3 ,backgroundColor:'white',padding: 20 }}>
             <TextField
-                id="outlined-username-input"
-                label="Username"
+                id="outlined-email-input"
+                label="Email"
                 type="text"
-                autoComplete="current-username"
+                autoComplete="current-email"
                 style={{  width:'100%', marginTop:'10px'}}
                 value={credentials.email}
                 onChange={(event) => setCredentials({ ...credentials, email: event.target.value })}
