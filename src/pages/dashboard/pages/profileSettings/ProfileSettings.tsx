@@ -3,11 +3,39 @@ import {Box, Button, Grid, TextField, Typography} from "@mui/material";
 import InventoryTable from "@pages/dashboard/pages/inventoryManagement/InventoryTable";
 
 export default function ProfileSettings(){
-    const [credentials, setCredentials] = React.useState({ name: '', email: '', password: '' });
+    const [credentials, setCredentials] = React.useState({ password: '' });
 
-    async function handleSubmit(e:any) {
+    async function handleChangePassword(newPassword: string) {
+        try {
+            // Get userId from token or from your state (assuming it's available)
+            const userId = getUserIdFromToken(); // Implement this function to extract userId from token
+            const response = await fetch('/api/auth/change-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`, // Include your authentication token
+                },
+                body: JSON.stringify({ userId, newPassword }),
+            });
+
+            if (response.ok) {
+                // Password changed successfully
+                console.log('Password changed successfully.');
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Password change failed.');
+            }
+        } catch (error) {
+            console.error('Error changing password:', error.message);
+        }
+    }
+
+    async function handleSubmit(e: any) {
         e.preventDefault();
-
+        const newPassword = credentials.password;
+        await handleChangePassword(newPassword);
+        // Optionally, you can reset the password field after successful change
+        setCredentials({ ...credentials, password: '' });
     }
 
     return (
