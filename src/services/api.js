@@ -29,6 +29,21 @@ export const register = async (credentials) => {
     return token;
 };
 
+export const change_password = async (token, newpassword) => {
+    const response = await fetch('http://localhost:8080/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({token, newpassword}),
+    });
+
+    if (!response.ok) {
+        throw new Error('Password Change failed');
+    }
+
+    const data = await response.json();
+    return data.newtoken;
+};
+
 
 export async function fetchWithToken(url, options = {}) {
     const token = localStorage.getItem('token'); // Retrieve token from local storage
