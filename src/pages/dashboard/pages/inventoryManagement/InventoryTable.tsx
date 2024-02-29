@@ -29,6 +29,8 @@ type Product = {
     measurement_id: number;
     measurement_name: string;
     price: number;
+    //Created isActive for keeping track
+    isActive: boolean;
     subRows?: Product[];
 };
 
@@ -36,6 +38,14 @@ interface RowProps {
     row: Product;
     handleProductVariantAdd: (productId: number, productName: string) => void;
     handleProductVariantDrawerOpen: (productId: number, productName: string) => void;
+}
+
+//function handlePreview handles events sent by buttons
+
+function handlePreview(event: any) {
+    if (event === 'setActive') {
+        alert('working');
+    }
 }
 
 const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
@@ -68,6 +78,9 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                         Add Sub-Info
                     </Button>
                 </TableCell>
+                <TableCell align="left">
+
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
@@ -84,6 +97,7 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                         <TableCell>Presentation</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Unit</TableCell>
+                                        <TableCell align="right">Active</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -96,6 +110,13 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                             <TableCell>{subRow.presentation}</TableCell>
                                             <TableCell align="right">{subRow.quantity}</TableCell>
                                             <TableCell align="right">{subRow.unit}</TableCell>
+                                            <TableCell align="right">
+                                                <button type="button"
+                                                       id="button_id"
+                                                       onClick={()=> handlePreview('setActive')}>
+                                                    {subRow.isActive}
+                                                </button>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -167,7 +188,6 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ refresh }) => {
                         <TableCell align="left">Product Name</TableCell>
                         <TableCell align="left">Unit of Measurement</TableCell>
                         <TableCell align="left">Add Product</TableCell>
-
 
                     </TableRow>
                 </TableHead>
