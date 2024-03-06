@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import ProductVariantForm from "@pages/dashboard/pages/inventoryManagement/inventoryForms/ProductVariantForm";
 import Drawer from '@mui/material/Drawer';
 
+
 type Product = {
     id: string;
     sku: string;
@@ -38,9 +39,8 @@ interface RowProps {
     row: Product;
     handleProductVariantAdd: (productId: number, productName: string) => void;
     handleProductVariantDrawerOpen: (productId: number, productName: string) => void;
-}
 
-//function handlePreview handles events sent by buttons
+}
 
 function handlePreview(event: any) {
     if (event === 'setActive') {
@@ -48,8 +48,24 @@ function handlePreview(event: any) {
     }
 }
 
+
 const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
     const [open, setOpen] = React.useState(false);
+    const [selectedOption, setSelectedOption] = useState("");
+    const [activeRadioIndex, setActiveRadioIndex] = useState<number | null>(null);
+
+    const handleChange = (event:any) => {
+        setSelectedOption(event.target.value);
+    };
+
+
+
+
+
+
+
+    const options = ["Active"];
+
 
     return (
         <React.Fragment>
@@ -110,12 +126,35 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                             <TableCell>{subRow.presentation}</TableCell>
                                             <TableCell align="right">{subRow.quantity}</TableCell>
                                             <TableCell align="right">{subRow.unit}</TableCell>
+
+                                            {/*<TableCell align="right" onClick={() => handlePreview("setActive")}>*/}
+                                            {/*        {options.map((option, index) => (*/}
+                                            {/*               <div key={index}>*/}
+                                            {/*        <input*/}
+                                            {/*            id="radioButton"*/}
+                                            {/*            type="radio"*/}
+                                            {/*            checked={activeRadioIndex === index}*/}
+                                            {/*            onChange={() => handleRadioClick(index)}*/}
+                                            {/*        />*/}
+                                            {/*        <label form="radioButton"> {subRow.isActive} </label>*/}
+                                            {/*    </div>*/}
+                                            {/*        ))}*/}
+                                            {/*</TableCell>*/}
+
                                             <TableCell align="right">
-                                                <button type="button"
-                                                       id="button_id"
-                                                       onClick={()=> handlePreview('setActive')}>
-                                                    {subRow.isActive}
-                                                </button>
+                                                {options.map((option, index) => (
+                                                    <div key={index}>
+                                                        <input
+                                                            type="radio"
+                                                            id={option}
+                                                            name={`radioGroup-${row.id}`}
+                                                            value={option}
+                                                            checked={selectedOption === option}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <label htmlFor={option}></label>
+                                                    </div>
+                                                ))}
                                             </TableCell>
                                         </TableRow>
                                     ))}
