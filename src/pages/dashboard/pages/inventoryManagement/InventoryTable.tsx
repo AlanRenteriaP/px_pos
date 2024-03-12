@@ -17,7 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Button from '@mui/material/Button';
 import ProductVariantForm from "@pages/dashboard/pages/inventoryManagement/inventoryForms/ProductVariantForm";
 import Drawer from '@mui/material/Drawer';
-
+import axios from 'axios';
 
 type Product = {
     id: string;
@@ -31,7 +31,7 @@ type Product = {
     measurement_name: string;
     price: number;
     //Created isActive for keeping track
-    isActive: boolean;
+    is_active: boolean;
     subRows?: Product[];
 };
 
@@ -42,29 +42,44 @@ interface RowProps {
 
 }
 
-function handlePreview(event: any) {
-    if (event === 'setActive') {
-        alert('working');
-    }
-}
-
 
 const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
     const [open, setOpen] = React.useState(false);
-    const [selectedOption, setSelectedOption] = useState("");
-    const [activeRadioIndex, setActiveRadioIndex] = useState<number | null>(null);
+    //undefined | string specifica un proceso mas especifico que pude ser undefined o string
+    const [activeSubRowId, setActiveSubRowId] = React.useState<undefined | string>(undefined);
+    const [data, setData] = useState<Product[]>([]);
 
-    const handleChange = (event:any) => {
-        setSelectedOption(event.target.value);
+    useEffect(() => {
+        // Encuenta la subRow que esta activa y agarramos su id
+        const activeSubRow = row.subRows?.find(subRow => subRow.is_active);
+
+        // Si tenemos una subRow activa, actualizamos el estado con su id.
+        if (activeSubRow) {
+            setActiveSubRowId(activeSubRow.id);
+        }
+    }, [row]);
+
+    const handleChange = (id:any) => {
+        setActiveSubRowId(id);
+
+
+        // fetch(`http://localhost:8080/invmanagement/change_valid_variant/${id}`)
+        //     .then(response => response.json())
+        //     .then(json => setData(json))
+        //     .catch(error => console.error('Error:', error));
+
+
+
+        axios.post(`/invmanagement/change_valid_variant/${id}`)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error("Failed to change the variant", error);
+            });
     };
 
 
-
-
-
-
-
-    const options = ["Active"];
 
 
     return (
@@ -111,8 +126,10 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                         <TableCell>SKU</TableCell>
                                         <TableCell>Vendor</TableCell>
                                         <TableCell>Presentation</TableCell>
+                                        <TableCell align="right">Price</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Unit</TableCell>
+                                        <TableCell align="right">Active String</TableCell>
                                         <TableCell align="right">Active</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -124,37 +141,18 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                             </TableCell>
                                             <TableCell>{subRow.vendor}</TableCell>
                                             <TableCell>{subRow.presentation}</TableCell>
+                                            <TableCell align="right">{subRow.price}</TableCell>
                                             <TableCell align="right">{subRow.quantity}</TableCell>
                                             <TableCell align="right">{subRow.unit}</TableCell>
-
-                                            {/*<TableCell align="right" onClick={() => handlePreview("setActive")}>*/}
-                                            {/*        {options.map((option, index) => (*/}
-                                            {/*               <div key={index}>*/}
-                                            {/*        <input*/}
-                                            {/*            id="radioButton"*/}
-                                            {/*            type="radio"*/}
-                                            {/*            checked={activeRadioIndex === index}*/}
-                                            {/*            onChange={() => handleRadioClick(index)}*/}
-                                            {/*        />*/}
-                                            {/*        <label form="radioButton"> {subRow.isActive} </label>*/}
-                                            {/*    </div>*/}
-                                            {/*        ))}*/}
-                                            {/*</TableCell>*/}
-
+                                            <TableCell align="right">{(subRow.is_active ?? "").toString()}</TableCell>
                                             <TableCell align="right">
-                                                {options.map((option, index) => (
-                                                    <div key={index}>
-                                                        <input
-                                                            type="radio"
-                                                            id={option}
-                                                            name={`radioGroup-${row.id}`}
-                                                            value={option}
-                                                            checked={selectedOption === option}
-                                                            onChange={handleChange}
-                                                        />
-                                                        <label htmlFor={option}></label>
-                                                    </div>
-                                                ))}
+                                                <input
+                                                    type="radio"
+                                                    id={`radio-${subRow.id}`}
+                                                    name={`radioGroup-${row.id}`}
+                                                    checked={activeSubRowId === subRow.id}
+                                                    onChange={() => handleChange(subRow.id)}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -182,7 +180,7 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ refresh }) => {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        fetchProducts();
+            fetchProducts();
     }, [refresh]);
 
     const fetchProducts = () => {
