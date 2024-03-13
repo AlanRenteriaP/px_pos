@@ -63,10 +63,6 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
         setActiveSubRowId(id);
 
 
-        // fetch(`http://localhost:8080/invmanagement/change_valid_variant/${id}`)
-        //     .then(response => response.json())
-        //     .then(json => setData(json))
-        //     .catch(error => console.error('Error:', error));
 
 
 
@@ -133,6 +129,7 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                         <TableCell align="right">Active</TableCell>
                                     </TableRow>
                                 </TableHead>
+
                                 <TableBody>
                                     {row.subRows?.map((subRow) => (
                                         <TableRow key={subRow.id}>
