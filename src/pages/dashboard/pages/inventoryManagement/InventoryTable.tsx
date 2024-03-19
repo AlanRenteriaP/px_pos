@@ -29,6 +29,7 @@ type Product = {
     measurement_id: number;
     measurement_name: string;
     price: number;
+    is_active: boolean;
     subRows?: Product[];
 };
 
@@ -84,18 +85,19 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                                         <TableCell>Presentation</TableCell>
                                         <TableCell align="right">Quantity</TableCell>
                                         <TableCell align="right">Unit</TableCell>
+                                        <TableCell align="right">Is Active</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
+                                    {console.log(row.subRows)}
                                     {row.subRows?.map((subRow) => (
                                         <TableRow key={subRow.id}>
-                                            <TableCell component="th" scope="row">
-                                                {subRow.sku}
-                                            </TableCell>
+                                            <TableCell component="th" scope="row">  {subRow.sku} </TableCell>
                                             <TableCell>{subRow.vendor}</TableCell>
                                             <TableCell>{subRow.presentation}</TableCell>
                                             <TableCell align="right">{subRow.quantity}</TableCell>
                                             <TableCell align="right">{subRow.unit}</TableCell>
+                                            <TableCell align="right">{subRow.is_active.toString()}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

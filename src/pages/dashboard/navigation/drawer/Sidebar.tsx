@@ -5,6 +5,7 @@ import { Dashboard as DashboardIcon, ShoppingCart as OrdersIcon, RestaurantMenu 
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 import { setActiveComponent } from '@redux/dashboard';
 import { logout } from '@redux/auth';
+import { useLocation } from 'react-router-dom';
 
 interface SidebarItem {
     label: string;
@@ -19,6 +20,7 @@ interface SidebarItem {
 
 
 const Sidebar: React.FC = () => {
+    const location = useLocation();
     const dispatch = useDispatchTyped();
     const [expandedSubMenus, setExpandedSubMenus] = useState<Record<string, boolean>>({});
     const navigate = useNavigate();
@@ -111,6 +113,7 @@ const Sidebar: React.FC = () => {
                         }
                     }}
                     disabled={item.disabled}
+
                 >
                     <ListItemIcon>
                         {item.badge ? (
