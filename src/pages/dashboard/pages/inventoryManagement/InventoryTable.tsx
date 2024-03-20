@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import ProductVariantForm from "@pages/dashboard/pages/inventoryManagement/inventoryForms/ProductVariantForm";
 import Drawer from '@mui/material/Drawer';
 import axios from 'axios';
+import Radio from '@mui/material/Radio';
 
 type Product = {
     id: string;
@@ -145,12 +146,11 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
 
                                             <TableCell align="right">{(subRow.is_active ?? "").toString()}</TableCell>
                                             <TableCell align="right">
-                                                <input
-                                                    type="radio"
-                                                    id={`radio-${subRow.id}`}
-                                                    name={`radioGroup-${row.id}`}
+                                                <Radio
                                                     checked={activeSubRowId === subRow.id}
                                                     onChange={() => handleChange(subRow.id)}
+                                                    value={subRow.id}
+                                                    name={`radioGroup-${row.id}`}
                                                 />
                                             </TableCell>
 
