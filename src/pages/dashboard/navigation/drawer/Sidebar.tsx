@@ -21,11 +21,9 @@ import {
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 import { setActiveComponent } from '@redux/dashboard';
 import { logout } from '@redux/auth';
-<<<<<<< HEAD
+
 import { useLocation } from 'react-router-dom';
-=======
-import {bool} from "yup";
->>>>>>> origin/dev
+
 
 interface SidebarItem {
     label: string;
