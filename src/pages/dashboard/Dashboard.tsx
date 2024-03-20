@@ -33,7 +33,7 @@ function Dashboard() {
                         <Route path="/InventoryManagement/InventoryKitchen" element={<InventoryKitchen />} />
                         <Route path="/InventoryManagement/InventoryFH" element={<InventoryFH />} />
                         <Route path="/InventoryManagement/InventoryBar" element={<InventoryBar />} />
-                        <Route path="/MenuManagemente" element={<MenuManagement />} />
+                        <Route path="/MenuManagement" element={<MenuManagement />} />
                         <Route path="/ProfileSettings" element={<ProfileSettings />} />
                         {/*<Route path="*" element={<NotFound />} />*/}
                     </Routes>

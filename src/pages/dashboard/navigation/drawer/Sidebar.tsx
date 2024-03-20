@@ -1,21 +1,44 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Box, Collapse, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
-import { Dashboard as DashboardIcon, ShoppingCart as OrdersIcon, RestaurantMenu as MenuIcon, Store as InventoryIcon, People as StaffIcon, EventSeat as TableIcon, AccountCircle as CustomersIcon, LocalOffer as PromotionsIcon, Description as ReportsIcon, Settings as SettingsIcon, Help as SupportIcon, ExitToApp as ExitToAppIcon, ExpandLess, ExpandMore } from '@mui/icons-material';
+import {
+    Dashboard as DashboardIcon,
+    ShoppingCart as OrdersIcon,
+    RestaurantMenu as MenuIcon,
+    Store as InventoryIcon,
+    People as StaffIcon,
+    EventSeat as TableIcon,
+    AccountCircle as CustomersIcon,
+    LocalOffer as PromotionsIcon,
+    Description as ReportsIcon,
+    Settings as SettingsIcon,
+    Help as SupportIcon,
+    ExitToApp as ExitToAppIcon,
+    ExpandLess,
+    ExpandMore,
+    Highlight
+} from '@mui/icons-material';
 import { useDispatchTyped ,useAppSelector } from '@src/hooks';
 import { setActiveComponent } from '@redux/dashboard';
 import { logout } from '@redux/auth';
+<<<<<<< HEAD
 import { useLocation } from 'react-router-dom';
+=======
+import {bool} from "yup";
+>>>>>>> origin/dev
 
 interface SidebarItem {
     label: string;
     icon: JSX.Element;
-    subItems?: { label: string; icon?: JSX.Element; onClick?: () => void; }[];
+    subItems?: { label: string; icon?: JSX.Element; location?: string; selected?: boolean; onClick?: () => void; }[];
     onClick?: () => void;
     disabled?: boolean;
+    highlighted?: boolean;
     tooltip?: string;
     badge?: number;
+    selected?: boolean;
     color?: "primary" | "secondary" | "error" | "info" | "success";
+    location?: string;
 }
 
 
@@ -32,43 +55,53 @@ const Sidebar: React.FC = () => {
         }));
     };
 
+    const findIndexByLabel = (label: string) => {
+        return sidebarItems.findIndex(item => item.label === label);
+    };
+
+    var i;
+
     const sidebarItems: SidebarItem[] = [
-        { label: "Dashboard", icon: <DashboardIcon />,
+        { label: "Dashboard", icon: <DashboardIcon />, location: '/dashboard',
             onClick: () => {
+
                 navigate('/dashboard');
             }
-        }, { label: "Orders", icon: <OrdersIcon />,
+        }, { label: "Orders", icon: <OrdersIcon />, location: '/orders',
             disabled: true,
             tooltip: "Click to access the example feature",
             badge: 5,
             color: "primary",
         },
-        { label: "Menu Management", icon: <MenuIcon /> ,disabled: false,
+        { label: "Menu Management", icon: <MenuIcon /> ,disabled: false, location: '/dashboard/MenuManagement',
             onClick: () => {
-                navigate('/dashboard/MenuManagemente');
+                i=findIndexByLabel('Menu Management');
+                sidebarItems[i].location='/dashboard/MenuManagement';
+                navigate('/dashboard/MenuManagement');
             },},
-        { label: "Inventory Management", icon: <InventoryIcon />,disabled: false,
+        { label: "Inventory Management", icon: <InventoryIcon />,disabled: false, location: '/dashboard/InventoryManagement',
             onClick: () => {
                 navigate('/dashboard/InventoryManagement');
             },
             subItems: [
-                { label: "Kitchen Inventory", icon: <DashboardIcon /> ,
+                { label: "Kitchen Inventory", icon: <DashboardIcon /> , location: '/dashboard/InventoryManagement/InventoryKitchen',
                     onClick: () => {
                         navigate('/dashboard/InventoryManagement/InventoryKitchen');
                         console.log('InventoryBar');
                     }},
-                { label: "Coffee Bar Inventory" , icon: <DashboardIcon />,
+                { label: "Coffee Bar Inventory" , icon: <DashboardIcon />, location: '/dashboard/InventoryManagement/InventoryCoffee',
                     onClick: () => {
                         navigate('/dashboard/InventoryManagement/InventoryCoffee');
                         console.log('InventoryBar');
                     }},
-                {  label: "Bar Invetory",icon: <DashboardIcon /> ,
+                {  label: "Bar Inventory",icon: <DashboardIcon /> , location: '/dashboard/InventoryManagement/InventoryBar',
                     onClick: () => {
                         navigate('/dashboard/InventoryManagement/InventoryBar');
                         console.log('InventoryBar');
                     }
                     },
-                {  label: "Front of the House Inventory",icon: <DashboardIcon />,onClick: () => {
+                {  label: "Front of the House Inventory",icon: <DashboardIcon />, location: '/dashboard/InventoryManagement/InventoryFH',
+                    onClick: () => {
                         navigate('/dashboard/InventoryManagement/InventoryFH');
                         console.log('InventoryBar');
                     } }
@@ -87,7 +120,7 @@ const Sidebar: React.FC = () => {
     ];
 
     const bottomSidebarItems: SidebarItem[] = [
-        { label: "Settings", icon: <SettingsIcon />,
+        { label: "Settings", icon: <SettingsIcon />, location: '/dashboard/ProfileSettings',
             onClick: () => {
                 navigate('/dashboard/ProfileSettings');
         }},
@@ -103,6 +136,9 @@ const Sidebar: React.FC = () => {
         <React.Fragment key={index}>
             <Tooltip title={item.tooltip || ""}>
                 <ListItem
+
+                    selected={location.pathname === item.location}
+
                     button
                     onClick={() => {
                         if (item.subItems) {
@@ -111,7 +147,8 @@ const Sidebar: React.FC = () => {
                         if (item.onClick && !item.disabled) {
                             item.onClick();
                         }
-                    }}
+                    }
+                }
                     disabled={item.disabled}
 
                 >
@@ -139,6 +176,7 @@ const Sidebar: React.FC = () => {
                     <List component="div" disablePadding>
                         {item.subItems.map((subItem, subIndex) => (
                             <ListItem
+                                selected={location.pathname === subItem.location}
                                 button
                                 key={subIndex}
                                 sx={{ pl: 4 }}
