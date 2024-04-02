@@ -12,7 +12,8 @@ const MenuManagement: React.FC = () => {
     // Assuming menuItems is an array containing all the menu items
     const filteredMenuItems = themenuItems.filter(item =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (selectedCategories.length === 0 || selectedCategories.includes(item.category)) // Assuming the category of each item is stored in item.category
+        (selectedCategories.length === 0 ||
+            item.category.some(category => selectedCategories.includes(category))) // Assuming the category of each item is stored in item.category
     );
     const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;

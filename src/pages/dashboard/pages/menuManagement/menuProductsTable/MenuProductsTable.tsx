@@ -17,7 +17,7 @@ type MenuItem = {
     title: string;
     description: string;
     materials: Material[]; // Change from 'items' to 'materials'
-    category: string;
+    category: string[];
     sellingPrice: number;
 
 };
