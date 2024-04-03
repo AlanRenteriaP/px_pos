@@ -11,7 +11,7 @@ export type theMenuItem = {
     title: string;
     description: string;
     materials: Material[]; // Change from 'items' to 'materials'
-    category: string[];
+    categories: string[];
     sellingPrice: number;
 };
 
@@ -31,7 +31,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Garlic Bread', quantity: 2, cost: 0.50,measurement:'g' },
             { name: 'Caesar Salad', quantity: 1, cost: 2.00,measurement:'g' }
         ],
-        category: ['food','drink'],
+        categories: ['food','drink'],
         sellingPrice: 35
     },
     {
@@ -44,7 +44,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Cheese', quantity: 1, cost: 1.50,measurement:'g' },
             { name: 'Butter', quantity: 1, cost: 0.10,measurement:'g' }
         ],
-        category: ['food','alcohol'],
+        categories: ['food','alcohol'],
         sellingPrice: 55
     },
     {
@@ -57,7 +57,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Tortillas', quantity: 4, cost: 0.50,measurement:'g' },
             { name: 'Salsa', quantity: 5, cost: 0.75,measurement:'g' }
         ],
-        category: ['food','pastry'],
+        categories: ['food','pastry'],
         sellingPrice: 35
     },
     {
@@ -70,7 +70,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Mixed Greens', quantity: 1, cost: 1.50,measurement:'g' },
             { name: 'Dressing', quantity: 3, cost: 0.50,measurement:'g' }
         ],
-        category: ['food','pastry'],
+        categories: ['food','pastry'],
         sellingPrice: 45
     },
     {
@@ -83,7 +83,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Lime Juice', quantity: 2, cost: 0.30,measurement:'ml' },
             { name: 'Cointreau', quantity: 1, cost: 1.50,measurement:'ml' }
         ],
-        category: ['alcohol'],
+        categories: ['alcohol'],
         sellingPrice: 35
     },
     {
@@ -96,7 +96,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Tomato Juice', quantity: 1, cost: 1.00,measurement:'ml' },
             { name: 'Celery', quantity: 1, cost: 0.10,measurement:'ml' }
         ],
-        category: ['alcohol'],
+        categories: ['alcohol'],
         sellingPrice: 25
     },
     {
@@ -109,7 +109,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Mint', quantity: 1, cost: 0.30,measurement:'ml' },
             { name: 'Lime', quantity: 1, cost: 0.50,measurement:'ml' }
         ],
-        category: ['alcohol'],
+        categories: ['alcohol'],
         sellingPrice: 35
     },
     {
@@ -122,7 +122,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Bitters', quantity: 5, cost: 0.20,measurement:'ml' },
             { name: 'Sugar', quantity: 5, cost: 0.05,measurement:'ml' }
         ],
-        category: ['alcohol'],
+        categories: ['alcohol'],
         sellingPrice: 60
     },
     {
@@ -135,7 +135,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Ice', quantity: 5, cost: 0.05,measurement:'g' },
             { name: 'Milk', quantity: 5, cost: 0.30,measurement:'ml' }
         ],
-        category: ['drinks'],
+        categories: ['drinks'],
         sellingPrice: 55
     },
     {
@@ -148,7 +148,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Yogurt', quantity: 1, cost: 0.70,measurement:'ml' },
             { name: 'Honey', quantity: 1, cost: 0.30,measurement:'ml' }
         ],
-        category: ['drinks'],
+        categories: ['drinks'],
         sellingPrice: 35
     },
     {
@@ -160,7 +160,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Green Tea Leaves', quantity: 5, cost: 0.50,measurement:'ml' },
             { name: 'Water', quantity: 2, cost: 1.00,measurement:'ml' }
         ],
-        category: ['drinks'],
+        categories: ['drinks'],
         sellingPrice: 25
     },
     {
@@ -173,7 +173,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Cherry Syrup', quantity: 2, cost: 0.40,measurement:'ml' },
             { name: 'Water', quantity: 1, cost: 1.00,measurement:'ml' }
         ],
-        category: ['drinks'],
+        categories: ['drinks'],
         sellingPrice: 35
     },
     {
@@ -185,7 +185,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Pastry Dough', quantity: 5, cost: 0.50,measurement:'g' },
             { name: 'Chocolate', quantity: 2, cost: 0.70,measurement:'g' }
         ],
-        category: ['pastry'],
+        categories: ['pastry'],
         sellingPrice: 65
     },
     {
@@ -198,7 +198,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Blueberries', quantity: 5, cost: 1.00,measurement:'g' },
             { name: 'Sugar', quantity: 5, cost: 0.20,measurement:'g' }
         ],
-        category: ['pastry'],
+        categories: ['pastry'],
         sellingPrice:55
     },
     {
@@ -211,7 +211,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Pie Crust', quantity: 1, cost: 1.00,measurement:'g' },
             { name: 'Cinnamon', quantity: 5, cost: 0.10,measurement:'g' }
         ],
-        category: ['pastry'],
+        categories: ['pastry'],
         sellingPrice: 45
     },
     {
@@ -224,7 +224,7 @@ export const themenuItems: theMenuItem[] = [
             { name: 'Vanilla Extract', quantity: 5, cost: 0.50,measurement:'ml' },
             { name: 'Frosting', quantity: 3, cost: 0.60,measurement:'g' }
         ],
-        category: ['pastry'],
+        categories: ['pastry'],
         sellingPrice: 35
     }
 ];

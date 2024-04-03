@@ -18,7 +18,7 @@ type MenuItem = {
     title: string;
     description: string;
     materials: Material[]; // Change from 'items' to 'materials'
-    category: string[];
+    categories: string[];
     sellingPrice: number;
 };
 
@@ -49,7 +49,7 @@ const Row: React.FC<RowProps> = ({ row, handleProductVariantDrawerOpen }) => {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell align="left">{row.category}</TableCell>
+                <TableCell align="left">{row.categories}</TableCell>
                 <TableCell align="left">{row.title}</TableCell> {/* Aligned to right */}
                 <TableCell align="left">{row.description}</TableCell> {/* Aligned to right */}
                 <TableCell align="left">${row.sellingPrice}</TableCell> {/* Aligned to right */}
