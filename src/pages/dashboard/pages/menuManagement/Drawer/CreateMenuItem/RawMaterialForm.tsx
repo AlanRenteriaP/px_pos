@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { TextField, Select, MenuItem, FormControl, InputLabel, Box, Paper, SelectChangeEvent, Button } from '@mui/material';
 import axios from 'axios'; // Ensure axios is installed
+import { useDispatchTyped , useAppSelector} from "@src/hooks";
+import { addMaterial,removeMaterial  } from "@redux/dashboard/menuManagement";
 
 // Define the structure of your material data
 interface rawMaterial {

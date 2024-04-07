@@ -2,6 +2,8 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import RawMaterialForm from './RawMaterialForm';
 import { Paper, Box, TextField, Button } from '@mui/material';
 
+import { useDispatchTyped , useAppSelector} from "@src/hooks";
+
 export type RawMaterial = {
     id: number;
     product_name: string;
@@ -44,7 +46,7 @@ const CreateMenuItem = ({ onClose }: Props) => {
         };
 
         console.log(payload);
-        fetch('http://localhost:8080/menuBuild/add_menu_item', {
+        fetch('http://localhost:8080/menumanagement/add_menu_item', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

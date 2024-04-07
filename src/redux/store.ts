@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { alertSlice } from './features';
-import { appBarSlice, activeComponentSlice } from './dashboard'
+import { appBarSlice, activeComponentSlice, menuItemSlice } from './dashboard'
 import { authSlice } from "./auth";
 
 export const store = configureStore({
@@ -9,6 +9,7 @@ export const store = configureStore({
         appBar: appBarSlice.reducer,
         activeComponent: activeComponentSlice.reducer,
         auth: authSlice.reducer,
+        newMenuItem: menuItemSlice.reducer,
     },
 });
 
