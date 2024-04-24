@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux';
 
-// import { alerts } from './slice/alerts.slice';
+// import { alerts } from './slice.ts/alerts.slice.ts';
 import { reducer } from '../auth/slice';
 import { menubar } from './adminNavBar/slice';
-// import { activeComponent } from './slice/activeComponent.slice';
+// import { activeComponent } from './slice.ts/activeComponent.slice.ts';
 
 interface AppState {
     alert: any;
-    // slice: any;
+    // slice.ts: any;
     // menubar: any;
     // activeComponent: any;
 }
 
 const appReducer = combineReducers<AppState>({
     alert,
-    // slice,
+    // slice.ts,
     // menubar,
     // activeComponent,
 });

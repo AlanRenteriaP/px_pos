@@ -13,9 +13,6 @@ const App: React.FC = () => {
     // const dispatch = useDispatchTyped();
     // const auth = useAppSelector((state) => state.auth); // assuming you have a token reducer
 
-
-
-
     // dispatch(setAlert({  msg: "This is a success message!", alertType: "success" }));
     // dispatch(setAlert({  msg: "This is a warning message!", alertType: "warning" }));
     // dispatch(setAlert({  msg: "This is a info message!", alertType: "info" }));
